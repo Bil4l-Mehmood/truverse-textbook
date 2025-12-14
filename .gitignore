@@ -1,0 +1,85 @@
+# === FRONTEND (Node.js / TypeScript / Docusaurus) ===
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.docusaurus/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+frontend/.pnpm-debug.log*
+
+# === BACKEND (Python / FastAPI) ===
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+backend/.Python
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/.eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/share/python-wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+backend/MANIFEST
+backend/.venv/
+backend/venv/
+backend/ENV/
+backend/env/
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/.coverage
+backend/htmlcov/
+
+# === ENVIRONMENT VARIABLES & SECRETS ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!.env.example
+
+# === DATABASES & LOGS ===
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.log.*
+
+# === IDE & EDITORS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# === DEPLOYMENT & BUILD ===
+.vercel/
+.railway/
+*.tgz
+*.zip
+
+# === TEMPORARY FILES ===
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# === SPECS & DOCUMENTATION (keep these) ===
+# specs/ directory is intentionally tracked
+# .specify/ directory is intentionally tracked
