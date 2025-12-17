@@ -85,7 +85,7 @@ class QdrantManager:
         query_vector: List[float],
         limit: int = 5,
         score_threshold: float = 0.7,
-    ) -> List[Dict[str, Any]]:
+    ):
         """
         Search for similar vectors in Qdrant.
 
@@ -98,21 +98,16 @@ class QdrantManager:
             List of search results with payload and score
         """
         try:
-            results = self.client.search(
+            # Use query_points method for newer qdrant-client versions
+            results = self.client.query_points(
                 collection_name=self.collection_name,
-                query_vector=query_vector,
+                query=query_vector,
                 limit=limit,
                 score_threshold=score_threshold,
             )
 
-            return [
-                {
-                    "id": result.id,
-                    "score": result.score,
-                    "payload": result.payload,
-                }
-                for result in results
-            ]
+            # Return the points from the QueryResponse
+            return results.points
 
         except Exception as e:
             logger.error(f"Error searching Qdrant: {e}")

@@ -1,0 +1,26 @@
+{
+  "id": "learning-outcomes",
+  "title": "Learning Outcomes",
+  "description": "This page outlines the competencies you will develop by completing the Physical AI & Humanoid Robotics course. Learning outcomes are organized by Bloom's Taxonomy levels and mapped to specific course modules.",
+  "source": "@site/docs/learning-outcomes.md",
+  "sourceDirName": ".",
+  "slug": "/learning-outcomes",
+  "permalink": "/docs/learning-outcomes",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Hardware Requirements",
+    "permalink": "/docs/hardware-requirements"
+  },
+  "next": {
+    "title": "Weeks 1-2: ROS 2 Foundations",
+    "permalink": "/docs/weeks-01-02/"
+  }
+}

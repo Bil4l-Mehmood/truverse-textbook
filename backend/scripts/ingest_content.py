@@ -24,20 +24,17 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from dotenv import load_dotenv
 import tiktoken
-from openai import OpenAI
+
+# Load environment variables FIRST (before importing settings)
+load_dotenv()
 
 from src.core.config import settings
 from src.database.qdrant import qdrant_manager
-
-# Load environment variables
-load_dotenv()
+from src.services.embedding_service import generate_embeddings_batch
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Initialize OpenAI client
-client = OpenAI(api_key=settings.openai_api_key)
 
 # Initialize tokenizer
 encoding = tiktoken.encoding_for_model("gpt-4")
@@ -94,8 +91,13 @@ def read_markdown_files(docs_dir: str) -> List[Dict[str, Any]]:
 
     for md_file in md_files:
         try:
-            with open(md_file, "r", encoding="utf-8") as f:
-                content = f.read()
+            # Try UTF-8 first, fallback to latin-1 if needed
+            try:
+                with open(md_file, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except UnicodeDecodeError:
+                with open(md_file, "r", encoding="latin-1") as f:
+                    content = f.read()
 
             # Extract relative path for metadata
             relative_path = md_file.relative_to(docs_path)
@@ -123,26 +125,7 @@ def read_markdown_files(docs_dir: str) -> List[Dict[str, Any]]:
     return documents
 
 
-def generate_embedding(text: str) -> List[float]:
-    """
-    Generate embedding for text using OpenAI API.
-
-    Args:
-        text: Input text
-
-    Returns:
-        Embedding vector (1536 dimensions)
-    """
-    try:
-        response = client.embeddings.create(
-            model=settings.embedding_model,
-            input=text,
-        )
-        return response.data[0].embedding
-
-    except Exception as e:
-        logger.error(f"Error generating embedding: {e}")
-        raise
+# Removed generate_embedding - using batch embeddings from embedding_service
 
 
 async def ingest_documents(documents: List[Dict[str, Any]]):
@@ -179,24 +162,13 @@ async def ingest_documents(documents: List[Dict[str, Any]]):
 
     logger.info(f"Total chunks: {len(all_chunks)}")
 
-    # Generate embeddings
-    logger.info("Generating embeddings...")
-    all_embeddings = []
+    # Generate embeddings using Sentence Transformers (FREE, fast batch processing)
+    logger.info("Generating embeddings with Sentence Transformers (local, no API calls)...")
 
-    # Generate in batches to avoid rate limits
-    batch_size = 100
-    for i in range(0, len(all_chunks), batch_size):
-        batch = all_chunks[i:i + batch_size]
-        logger.info(f"  Processing batch {i//batch_size + 1}/{(len(all_chunks) + batch_size - 1)//batch_size}")
+    # Process all at once - no API limits!
+    all_embeddings = generate_embeddings_batch(all_chunks)
 
-        for chunk in batch:
-            embedding = generate_embedding(chunk)
-            all_embeddings.append(embedding)
-
-        # Small delay to avoid rate limiting
-        await asyncio.sleep(0.5)
-
-    logger.info(f"Generated {len(all_embeddings)} embeddings")
+    logger.info(f"Generated {len(all_embeddings)} embeddings (384 dimensions each)")
 
     # Upload to Qdrant
     logger.info("Uploading vectors to Qdrant...")

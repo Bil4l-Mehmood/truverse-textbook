@@ -1,0 +1,49 @@
+{
+  "total_documents": 8,
+  "total_chunks": 33,
+  "embedding_model": "embed-english-light-v3.0",
+  "chunk_size": 512,
+  "chunk_overlap": 50,
+  "documents": [
+    {
+      "chapter_id": "hardware-requirements",
+      "title": "Hardware Requirements",
+      "chunks": 7
+    },
+    {
+      "chapter_id": "intro",
+      "title": "Welcome to Physical AI & Humanoid Robotics",
+      "chunks": 3
+    },
+    {
+      "chapter_id": "learning-outcomes",
+      "title": "Learning Outcomes",
+      "chunks": 6
+    },
+    {
+      "chapter_id": "placeholder",
+      "title": "Coming Soon",
+      "chunks": 1
+    },
+    {
+      "chapter_id": "quarter-overview",
+      "title": "Quarter Overview",
+      "chunks": 5
+    },
+    {
+      "chapter_id": "weeks-01-02/index",
+      "title": "Weeks 1-2: ROS 2 Foundations",
+      "chunks": 6
+    },
+    {
+      "chapter_id": "weeks-01-02/module-details",
+      "title": "Untitled",
+      "chunks": 0
+    },
+    {
+      "chapter_id": "weeks-03-04/index",
+      "title": "Weeks 3-4: Computer Vision & Perception",
+      "chunks": 5
+    }
+  ]
+}

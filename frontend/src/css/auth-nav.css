@@ -1,0 +1,71 @@
+/* Auth Navigation Links in Navbar */
+
+.auth-nav-container {
+  position: fixed;
+  top: 0;
+  right: 140px;
+  height: var(--ifm-navbar-height);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 200;
+  pointer-events: none;
+  padding-right: 1rem;
+}
+
+.auth-nav-container > * {
+  pointer-events: auto;
+}
+
+.auth-nav-container .navbar__link {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--ifm-navbar-link-color);
+}
+
+.auth-nav-container .navbar__link:hover {
+  color: var(--ifm-navbar-link-hover-color);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.auth-nav-container .navbar__link--active {
+  background: var(--ifm-color-primary);
+  color: white !important;
+}
+
+.auth-nav-container .navbar__link--active:hover {
+  background: var(--ifm-color-primary-dark);
+  color: white !important;
+}
+
+.auth-nav-container .auth-logout-btn {
+  color: #dc3545;
+  font-family: inherit;
+}
+
+.auth-nav-container .auth-logout-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+}
+
+@media (max-width: 996px) {
+  .auth-nav-container {
+    position: static;
+    height: auto;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .auth-nav-container .navbar__link {
+    width: 100%;
+    text-align: center;
+  }
+}

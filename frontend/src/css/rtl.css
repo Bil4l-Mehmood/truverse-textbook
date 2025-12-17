@@ -1,0 +1,197 @@
+/**
+ * RTL (Right-to-Left) styling for Urdu and other RTL languages
+ */
+
+/* Global RTL support */
+html[lang="ur-PK"],
+html[lang="ur"] {
+  direction: rtl;
+}
+
+body[dir="rtl"],
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Docusaurus RTL adjustments */
+html[lang="ur-PK"] .navbar-sidebar {
+  right: 0;
+  left: auto;
+}
+
+html[lang="ur-PK"] .navbar-sidebar__back {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html[lang="ur-PK"] .sidebar {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* RTL form elements */
+html[lang="ur-PK"] input,
+html[lang="ur-PK"] select,
+html[lang="ur-PK"] textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL list items */
+html[lang="ur-PK"] ul,
+html[lang="ur-PK"] ol {
+  margin-right: 1em;
+  margin-left: 0;
+  padding-right: 1em;
+  padding-left: 0;
+}
+
+html[lang="ur-PK"] li {
+  margin-right: 0.5em;
+}
+
+/* RTL code blocks */
+html[lang="ur-PK"] .prism-code {
+  direction: ltr; /* Keep code LTR even in RTL documents */
+  text-align: left;
+}
+
+/* RTL alerts and boxes */
+html[lang="ur-PK"] .alert {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ur-PK"] .alert::before {
+  margin-right: 12px;
+  margin-left: 0;
+}
+
+/* RTL table */
+html[lang="ur-PK"] table {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL breadcrumb */
+html[lang="ur-PK"] .breadcrumbs {
+  direction: rtl;
+}
+
+html[lang="ur-PK"] .breadcrumbs__item::before {
+  margin: 0 4px 0 8px;
+}
+
+/* RTL buttons */
+html[lang="ur-PK"] button {
+  text-align: center;
+}
+
+/* RTL pagination */
+html[lang="ur-PK"] .pagination {
+  direction: rtl;
+}
+
+html[lang="ur-PK"] .pagination__item {
+  margin-right: 4px;
+  margin-left: 0;
+}
+
+/* RTL sidebar for docs */
+html[lang="ur-PK"] .docSidebarContainer {
+  order: 2;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+html[lang="ur-PK"] .docMainContainer {
+  order: 1;
+}
+
+/* RTL toc (table of contents) */
+html[lang="ur-PK"] .tableOfContents {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ur-PK"] .tableOfContents ul {
+  margin-right: 1rem;
+  margin-left: 0;
+  padding-right: 1rem;
+  padding-left: 0;
+}
+
+/* RTL footer */
+html[lang="ur-PK"] .footer {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ur-PK"] .footer__col {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL margins and padding flip */
+html[lang="ur-PK"] .margin-left {
+  margin-right: var(--spacing-unit, 1em) !important;
+  margin-left: 0 !important;
+}
+
+html[lang="ur-PK"] .margin-right {
+  margin-left: var(--spacing-unit, 1em) !important;
+  margin-right: 0 !important;
+}
+
+html[lang="ur-PK"] .padding-left {
+  padding-right: var(--spacing-unit, 1em) !important;
+  padding-left: 0 !important;
+}
+
+html[lang="ur-PK"] .padding-right {
+  padding-left: var(--spacing-unit, 1em) !important;
+  padding-right: 0 !important;
+}
+
+/* RTL search bar */
+html[lang="ur-PK"] .searchBox {
+  direction: rtl;
+}
+
+html[lang="ur-PK"] .searchBox input {
+  text-align: right;
+}
+
+/* RTL authbox */
+html[lang="ur-PK"] .auth-container,
+html[lang="ur-PK"] .auth-card {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ur-PK"] .auth-form input,
+html[lang="ur-PK"] .auth-form select {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL personalization modal */
+html[lang="ur-PK"] .personalization-modal {
+  direction: rtl;
+}
+
+html[lang="ur-PK"] .personalization-header,
+html[lang="ur-PK"] .personalization-content,
+html[lang="ur-PK"] .personalization-footer {
+  direction: rtl;
+  text-align: right;
+}
+
+html[lang="ur-PK"] .personalization-header {
+  flex-direction: row-reverse;
+}
+
+html[lang="ur-PK"] .personalization-footer {
+  flex-direction: row-reverse;
+}

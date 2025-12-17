@@ -1,0 +1,26 @@
+{
+  "id": "hardware-requirements",
+  "title": "Hardware Requirements",
+  "description": "This page details the hardware components required for hands-on labs in the Physical AI & Humanoid Robotics course. You have two main options: NVIDIA Jetson-based setup (recommended for embedded robotics) or Desktop/Laptop with GPU (suitable for simulation-heavy workflows).",
+  "source": "@site/docs/hardware-requirements.md",
+  "sourceDirName": ".",
+  "slug": "/hardware-requirements",
+  "permalink": "/docs/hardware-requirements",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Quarter Overview",
+    "permalink": "/docs/quarter-overview"
+  },
+  "next": {
+    "title": "Learning Outcomes",
+    "permalink": "/docs/learning-outcomes"
+  }
+}

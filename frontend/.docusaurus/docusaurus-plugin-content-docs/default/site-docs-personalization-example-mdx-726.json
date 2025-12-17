@@ -1,0 +1,17 @@
+{
+  "id": "personalization-example",
+  "title": "Getting Started with ROS 2",
+  "description": "Learn the basics of ROS 2 - Personalized learning experience",
+  "source": "@site/docs/personalization-example.mdx",
+  "sourceDirName": ".",
+  "slug": "/personalization-example",
+  "permalink": "/docs/personalization-example",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Getting Started with ROS 2",
+    "description": "Learn the basics of ROS 2 - Personalized learning experience"
+  }
+}

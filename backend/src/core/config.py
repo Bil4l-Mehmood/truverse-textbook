@@ -23,20 +23,27 @@ class Settings(BaseSettings):
     qdrant_api_key: str
     qdrant_collection_name: str = "textbook_embeddings"
 
-    # OpenAI API
-    openai_api_key: str
-    embedding_model: str = "text-embedding-3-small"
-    embedding_dimensions: int = 1536
-    chat_model: str = "gpt-4-turbo-preview"
+    # LLM API - Using Groq (free tier)
+    groq_api_key: str = ""  # Optional: Get free key at console.groq.com
+    chat_model: str = "llama-3.1-8b-instant"  # Free, fast model
+
+    # Embeddings - Using Cohere API (free tier)
+    cohere_api_key: str  # Required: Get free key at dashboard.cohere.com/api-keys
+    embedding_model: str = "embed-english-light-v3.0"
+    embedding_dimensions: int = 384
 
     # Authentication
     jwt_secret: str
     jwt_algorithm: str = "HS256"
     jwt_expiration_hours: int = 24
 
+    # Better Auth Secret (shared with auth-server)
+    better_auth_secret: str = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+
     # CORS
     cors_origins: list[str] = [
         "http://localhost:3000",
+        "http://localhost:3001",
         "https://*.vercel.app"
     ]
 

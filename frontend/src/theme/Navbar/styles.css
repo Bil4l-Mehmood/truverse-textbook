@@ -1,0 +1,67 @@
+/**
+ * Navbar authentication links styling
+ */
+
+.navbar-auth-links {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  z-index: 1;
+}
+
+.navbar-auth-link {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--ifm-navbar-link-color);
+}
+
+.navbar-auth-link:hover {
+  color: var(--ifm-navbar-link-hover-color);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.navbar-auth-signup {
+  background: var(--ifm-color-primary);
+  color: white !important;
+}
+
+.navbar-auth-signup:hover {
+  background: var(--ifm-color-primary-dark);
+  color: white !important;
+}
+
+.navbar-auth-logout {
+  color: var(--ifm-color-danger);
+}
+
+.navbar-auth-logout:hover {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--ifm-color-danger-dark);
+}
+
+@media (max-width: 996px) {
+  .navbar-auth-links {
+    position: static;
+    transform: none;
+    padding: 1rem;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navbar-auth-link {
+    width: 100%;
+    text-align: center;
+  }
+}

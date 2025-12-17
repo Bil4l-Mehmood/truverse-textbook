@@ -1,0 +1,26 @@
+{
+  "id": "weeks-01-02/index",
+  "title": "Weeks 1-2: ROS 2 Foundations",
+  "description": "Welcome to the first module of the Physical AI & Humanoid Robotics course! In these two weeks, you'll build a solid foundation in ROS 2 (Robot Operating System 2), the industry-standard framework for robot software development.",
+  "source": "@site/docs/weeks-01-02/index.md",
+  "sourceDirName": "weeks-01-02",
+  "slug": "/weeks-01-02/",
+  "permalink": "/docs/weeks-01-02/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Learning Outcomes",
+    "permalink": "/docs/learning-outcomes"
+  },
+  "next": {
+    "title": "Weeks 3-4: Computer Vision & Perception",
+    "permalink": "/docs/weeks-03-04/"
+  }
+}

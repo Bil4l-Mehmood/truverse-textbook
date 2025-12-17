@@ -1,0 +1,146 @@
+---
+title: Getting Started with ROS 2
+description: Learn the basics of ROS 2 - Personalized learning experience
+---
+
+import PersonalizationButton from '@site/src/components/Content/PersonalizationButton';
+import { useState, useEffect } from 'react';
+
+<PersonalizationButton
+  chapterId="getting-started-ros2"
+/>
+
+## What is ROS 2?
+
+ROS 2 (Robot Operating System 2) is a flexible framework for writing robot software. It's a collection of tools and libraries that help you build robot applications across a wide variety of robotic platforms.
+
+:::info Beginner Tip
+If you're new to robotics, think of ROS 2 as an operating system for robots - just like Windows or Linux for computers, ROS 2 provides the tools robots need to function.
+:::
+
+### Key Concepts
+
+**Nodes**: Programs that perform specific tasks (like reading sensor data or controlling motors)
+
+**Topics**: Communication channels where nodes send and receive messages
+
+**Services**: Request-response communication between nodes
+
+**Actions**: Long-running tasks with feedback
+
+## Installation Guide
+
+### For Ubuntu/Linux (Recommended for ROS 2)
+
+```bash
+# Add ROS 2 repository
+sudo apt update
+sudo apt install curl gnupg lsb-release ubuntu-keyring
+
+# Download ROS 2 GPG key
+curl -sSL https://repo.ros2.org/ros.key | sudo apt-key add -
+
+# Add ROS 2 repository
+sudo apt-repository "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main"
+
+# Install ROS 2
+sudo apt update
+sudo apt install ros-humble-desktop
+```
+
+:::tip Advanced Users
+For production environments, consider using Docker containers to isolate your ROS 2 workspaces and dependencies.
+:::
+
+### For Windows
+
+:::warning Note
+Windows support in ROS 2 is experimental. Ubuntu/Linux is recommended for development.
+:::
+
+```bash
+# Download pre-built binaries from https://docs.ros.org/en/humble/Installation/Windows-Install-MSI.html
+# Or use WSL (Windows Subsystem for Linux) with Ubuntu
+```
+
+### For macOS
+
+:::caution macOS Support
+macOS support in ROS 2 is limited. Consider using Docker or a Linux VM.
+:::
+
+## First ROS 2 Program
+
+### Your First Node
+
+Create a file called `hello_ros.py`:
+
+```python
+import rclpy
+from rclpy.node import Node
+
+class HelloNode(Node):
+    def __init__(self):
+        super().__init__('hello_node')
+        self.get_logger().info('Hello from ROS 2!')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = HelloNode()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+Run it:
+
+```bash
+python hello_ros.py
+```
+
+:::info Intermediate Tip
+To run this with GPU acceleration, ensure your system has CUDA installed and ROS 2 is compiled with GPU support.
+:::
+
+## Understanding the ROS 2 Ecosystem
+
+### Core Components
+
+| Component | Purpose |
+|-----------|---------|
+| **ROS Client Library (rcl)** | Low-level communication |
+| **rclpy** | Python bindings for ROS 2 |
+| **rclcpp** | C++ bindings for ROS 2 |
+| **DDS Middleware** | Handles message passing between nodes |
+
+### Package Structure
+
+```
+my_ros_package/
+├── package.xml          # Package metadata
+├── setup.py            # Python package setup
+├── src/
+│   └── my_package/
+│       ├── __init__.py
+│       └── my_node.py
+└── tests/
+    └── test_my_node.py
+```
+
+:::tip GPU Optimization
+If your GPU is NVIDIA RTX (24GB VRAM available), you can use CUDA acceleration for compute-intensive ROS 2 nodes. See the Advanced chapter for details.
+:::
+
+## Next Steps
+
+- ✅ Complete this chapter
+- 📖 Read: "Creating Your First ROS 2 Package"
+- 🔧 Practice: Build a simple subscriber/publisher
+- 🚀 Advanced: Multi-robot systems
+
+---
+
+**💡 Tip**: Use the personalization button above to adjust content based on your experience level!

@@ -2,6 +2,11 @@
 Main FastAPI application for the AI Textbook Platform.
 """
 
+from dotenv import load_dotenv
+
+# Load environment variables FIRST
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -11,6 +16,7 @@ from src.core.config import settings
 from src.database.postgres import init_db, close_db
 from src.database.qdrant import qdrant_manager
 from src.utils.logging import setup_logging
+from src.models import User, ChatSession, ChatMessage  # Import models to register with SQLAlchemy
 
 # Setup logging
 logger = setup_logging()
@@ -115,22 +121,27 @@ async def status():
         logger.error(f"Qdrant connection error: {e}")
         status_response["qdrant"] = f"error: {str(e)}"
 
-    # Check OpenAI API key
-    if settings.openai_api_key:
-        status_response["openai"] = "api_key_configured"
+    # Check Cohere API key (for embeddings)
+    if settings.cohere_api_key:
+        status_response["cohere"] = "api_key_configured"
     else:
-        status_response["openai"] = "api_key_missing"
+        status_response["cohere"] = "api_key_missing"
+
+    # Check Groq API key (for chat LLM)
+    if settings.groq_api_key:
+        status_response["groq"] = "api_key_configured"
+    else:
+        status_response["groq"] = "api_key_missing (optional)"
 
     return status_response
 
 
-# Include API routers (will be added later)
-# from src.api import chat, auth, personalization, translation, skills
-# app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
-# app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
-# app.include_router(personalization.router, prefix="/api/personalize", tags=["personalization"])
-# app.include_router(translation.router, prefix="/api/translate", tags=["translation"])
-# app.include_router(skills.router, prefix="/api/skills", tags=["skills"])
+# Include API routers
+from src.api.routes.search import router as search_router
+from src.api.routes.auth import router as auth_router
+
+app.include_router(search_router, prefix="/api/v1", tags=["search"])
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
 
 
 if __name__ == "__main__":

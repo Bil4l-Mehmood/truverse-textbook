@@ -1,0 +1,22 @@
+{
+  "id": "intro",
+  "title": "Welcome to Physical AI & Humanoid Robotics",
+  "description": "Welcome to the AI-Native Physical AI & Humanoid Robotics Textbook — your interactive guide to mastering the cutting-edge field of embodied artificial intelligence and humanoid robotics.",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Quarter Overview",
+    "permalink": "/docs/quarter-overview"
+  }
+}
