@@ -1,80 +1,64 @@
-"""
-Authentication service for user registration, login, and JWT token management.
-"""
+"""Authentication service with bcrypt password hashing and JWT tokens."""
 
 from datetime import datetime, timedelta
 from typing import Optional
-from jose import JWTError, jwt
 from passlib.context import CryptContext
+from jose import JWTError, jwt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.user import User
 from src.core.config import settings
 
-
-# Password hashing context
+# Password hashing context - using bcrypt
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    """
-    Hash a password using bcrypt.
-    Automatically truncates to 72 bytes (bcrypt limit) to allow any password length.
-    """
-    # Truncate to 72 bytes for bcrypt compatibility
-    # This allows users to enter passwords of any length
-    truncated_password = password[:72] if len(password) > 72 else password
-    return pwd_context.hash(truncated_password)
+    """Hash a password using bcrypt. Password will be truncated to 72 bytes."""
+    # Truncate password to 72 bytes (bcrypt limit)
+    truncated = password[:72]
+    return pwd_context.hash(truncated)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """
-    Verify a password against its hash.
-    Automatically truncates to 72 bytes to match hash_password behavior.
-    """
-    # Truncate to 72 bytes to match what was hashed during signup
-    truncated_password = plain_password[:72] if len(plain_password) > 72 else plain_password
-    return pwd_context.verify(truncated_password, hashed_password)
+    """Verify a password against its hash."""
+    # Truncate to 72 bytes to match hashing
+    truncated = plain_password[:72]
+    try:
+        return pwd_context.verify(truncated, hashed_password)
+    except Exception:
+        return False
 
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """
-    Create a JWT access token.
+def create_access_token(user_id: int, expires_delta: Optional[timedelta] = None) -> str:
+    """Create JWT access token."""
+    if expires_delta is None:
+        expires_delta = timedelta(hours=settings.jwt_expiration_hours)
 
-    Args:
-        data: Dictionary containing claims to encode in the token
-        expires_delta: Optional expiration time delta, defaults to 1 hour
+    expire = datetime.utcnow() + expires_delta
+    to_encode = {"user_id": user_id, "exp": expire}
 
-    Returns:
-        Encoded JWT token string
-    """
-    to_encode = data.copy()
-
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(hours=1)
-
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.jwt_secret, algorithm=settings.jwt_algorithm)
-
+    encoded_jwt = jwt.encode(
+        to_encode,
+        settings.jwt_secret,
+        algorithm=settings.jwt_algorithm
+    )
     return encoded_jwt
 
 
-def decode_access_token(token: str) -> Optional[dict]:
-    """
-    Decode and verify a JWT token.
-
-    Args:
-        token: JWT token string
-
-    Returns:
-        Decoded token payload or None if invalid
-    """
+def verify_token(token: str) -> Optional[int]:
+    """Verify JWT token and return user_id if valid."""
     try:
-        payload = jwt.decode(token, settings.jwt_secret, algorithms=[settings.jwt_algorithm])
-        return payload
+        payload = jwt.decode(
+            token,
+            settings.jwt_secret,
+            algorithms=[settings.jwt_algorithm]
+        )
+        user_id: int = payload.get("user_id")
+        if user_id is None:
+            return None
+        return user_id
     except JWTError:
         return None
 
@@ -90,26 +74,7 @@ async def create_user(
     operating_system: Optional[str] = None,
     robotics_knowledge: str = "Beginner",
 ) -> User:
-    """
-    Create a new user with hashed password and optional background data.
-
-    Args:
-        db: Database session
-        email: User email (must be unique)
-        password: Plain text password (will be hashed)
-        name: User's full name
-        ros2_experience: ROS 2 experience level
-        gpu_model: GPU model (e.g., "NVIDIA RTX 3060")
-        gpu_vram: GPU VRAM (e.g., "12GB")
-        operating_system: Operating system (Ubuntu/Windows/macOS)
-        robotics_knowledge: Robotics knowledge level
-
-    Returns:
-        Created User object
-
-    Raises:
-        ValueError: If email already exists
-    """
+    """Create a new user with hashed password."""
     # Check if user already exists
     result = await db.execute(select(User).where(User.email == email))
     existing_user = result.scalar_one_or_none()
@@ -117,10 +82,9 @@ async def create_user(
     if existing_user:
         raise ValueError(f"User with email {email} already exists")
 
-    # Create new user with hashed password
+    # Create new user
     hashed_password = hash_password(password)
-
-    new_user = User(
+    user = User(
         email=email,
         name=name,
         hashed_password=hashed_password,
@@ -131,25 +95,15 @@ async def create_user(
         robotics_knowledge=robotics_knowledge,
     )
 
-    db.add(new_user)
+    db.add(user)
     await db.commit()
-    await db.refresh(new_user)
+    await db.refresh(user)
 
-    return new_user
+    return user
 
 
 async def authenticate_user(db: AsyncSession, email: str, password: str) -> Optional[User]:
-    """
-    Authenticate a user by email and password.
-
-    Args:
-        db: Database session
-        email: User email
-        password: Plain text password
-
-    Returns:
-        User object if authentication successful, None otherwise
-    """
+    """Authenticate user by email and password."""
     result = await db.execute(select(User).where(User.email == email))
     user = result.scalar_one_or_none()
 
@@ -163,16 +117,7 @@ async def authenticate_user(db: AsyncSession, email: str, password: str) -> Opti
 
 
 async def get_user_by_id(db: AsyncSession, user_id: int) -> Optional[User]:
-    """
-    Get a user by their ID.
-
-    Args:
-        db: Database session
-        user_id: User ID
-
-    Returns:
-        User object or None if not found
-    """
+    """Get user by ID."""
     result = await db.execute(select(User).where(User.id == user_id))
     return result.scalar_one_or_none()
 
@@ -186,27 +131,12 @@ async def update_user_profile(
     operating_system: Optional[str] = None,
     robotics_knowledge: Optional[str] = None,
 ) -> Optional[User]:
-    """
-    Update user's background profile data.
-
-    Args:
-        db: Database session
-        user_id: User ID
-        ros2_experience: ROS 2 experience level
-        gpu_model: GPU model
-        gpu_vram: GPU VRAM
-        operating_system: Operating system
-        robotics_knowledge: Robotics knowledge level
-
-    Returns:
-        Updated User object or None if user not found
-    """
+    """Update user profile."""
     user = await get_user_by_id(db, user_id)
 
     if not user:
         return None
 
-    # Update only provided fields
     if ros2_experience is not None:
         user.ros2_experience = ros2_experience
     if gpu_model is not None:

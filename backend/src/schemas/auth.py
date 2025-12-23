@@ -1,118 +1,55 @@
-"""
-Pydantic schemas for authentication API requests and responses.
-"""
+"""Pydantic schemas for authentication API."""
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field, field_validator
-
-
-class BackgroundData(BaseModel):
-    """Background questionnaire data."""
-
-    ros2_experience: str = Field(
-        default="Beginner",
-        description="ROS 2 experience level: None/Beginner/Intermediate/Advanced",
-    )
-    gpu_model: Optional[str] = Field(
-        default=None,
-        description="GPU model (e.g., 'NVIDIA RTX 3060')",
-    )
-    gpu_vram: Optional[str] = Field(
-        default=None,
-        description="GPU VRAM (e.g., '12GB')",
-    )
-    operating_system: Optional[str] = Field(
-        default=None,
-        description="Operating system: Ubuntu/Windows/macOS",
-    )
-    robotics_knowledge: str = Field(
-        default="Beginner",
-        description="Robotics knowledge level: None/Beginner/Intermediate/Advanced",
-    )
+from pydantic import BaseModel, EmailStr, Field
 
 
 class SignUpRequest(BaseModel):
-    """Request schema for user registration."""
-
+    """Sign-up request schema."""
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., min_length=8, description="Password (min 8 characters, will be truncated to 72 for bcrypt)")
+    password: str = Field(..., min_length=8, description="Password (min 8 characters)")
     name: str = Field(..., min_length=1, description="User's full name")
-    background_data: Optional[BackgroundData] = Field(
-        default=None,
-        description="Optional background questionnaire data",
-    )
-
-    @field_validator("password", mode="before")
-    @classmethod
-    def truncate_password(cls, v: str) -> str:
-        """Truncate password to 72 bytes for bcrypt compatibility."""
-        if isinstance(v, str) and len(v) > 72:
-            return v[:72]
-        return v
-
-
-class SignInRequest(BaseModel):
-    """Request schema for user login."""
-
-    email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., description="User password (will be truncated to 72 for bcrypt)")
-
-    @field_validator("password", mode="before")
-    @classmethod
-    def truncate_password(cls, v: str) -> str:
-        """Truncate password to 72 bytes for bcrypt compatibility."""
-        if isinstance(v, str) and len(v) > 72:
-            return v[:72]
-        return v
-
-
-class UserProfile(BaseModel):
-    """User profile response schema."""
-
-    id: int = Field(..., description="User ID")
-    email: str = Field(..., description="User email")
-    name: str = Field(..., description="User's full name")
-    ros2_experience: str = Field(..., description="ROS 2 experience level")
+    ros2_experience: Optional[str] = Field(default="Beginner", description="ROS 2 experience level")
     gpu_model: Optional[str] = Field(None, description="GPU model")
     gpu_vram: Optional[str] = Field(None, description="GPU VRAM")
     operating_system: Optional[str] = Field(None, description="Operating system")
-    robotics_knowledge: str = Field(..., description="Robotics knowledge level")
-    created_at: datetime = Field(..., description="Account creation timestamp")
+    robotics_knowledge: Optional[str] = Field(default="Beginner", description="Robotics knowledge level")
+
+
+class SignInRequest(BaseModel):
+    """Sign-in request schema."""
+    email: EmailStr = Field(..., description="User email address")
+    password: str = Field(..., description="User password")
+
+
+class UserProfile(BaseModel):
+    """User profile schema."""
+    id: int
+    email: str
+    name: str
+    ros2_experience: str
+    gpu_model: Optional[str]
+    gpu_vram: Optional[str]
+    operating_system: Optional[str]
+    robotics_knowledge: str
+    created_at: datetime
 
     class Config:
         from_attributes = True
 
 
 class AuthResponse(BaseModel):
-    """Response schema for successful authentication."""
-
-    access_token: str = Field(..., description="JWT access token")
-    token_type: str = Field(default="bearer", description="Token type")
-    user: UserProfile = Field(..., description="User profile data")
+    """Auth response schema with token and user."""
+    access_token: str
+    token_type: str = "bearer"
+    user: UserProfile
 
 
 class UpdateProfileRequest(BaseModel):
-    """Request schema for updating user profile."""
-
-    ros2_experience: Optional[str] = Field(
-        None,
-        description="ROS 2 experience level: None/Beginner/Intermediate/Advanced",
-    )
-    gpu_model: Optional[str] = Field(None, description="GPU model")
-    gpu_vram: Optional[str] = Field(None, description="GPU VRAM")
-    operating_system: Optional[str] = Field(
-        None,
-        description="Operating system: Ubuntu/Windows/macOS",
-    )
-    robotics_knowledge: Optional[str] = Field(
-        None,
-        description="Robotics knowledge level: None/Beginner/Intermediate/Advanced",
-    )
-
-
-class ErrorResponse(BaseModel):
-    """Error response schema."""
-
-    detail: str = Field(..., description="Error message")
-    code: Optional[str] = Field(None, description="Error code")
+    """Update profile request schema."""
+    ros2_experience: Optional[str] = None
+    gpu_model: Optional[str] = None
+    gpu_vram: Optional[str] = None
+    operating_system: Optional[str] = None
+    robotics_knowledge: Optional[str] = None
