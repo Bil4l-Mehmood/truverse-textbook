@@ -4,7 +4,7 @@ Pydantic schemas for authentication API requests and responses.
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class BackgroundData(BaseModel):
@@ -36,19 +36,31 @@ class SignUpRequest(BaseModel):
     """Request schema for user registration."""
 
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., min_length=8, description="Password (min 8 characters)")
+    password: str = Field(..., min_length=8, max_length=72, description="Password (min 8, max 72 characters)")
     name: str = Field(..., min_length=1, description="User's full name")
     background_data: Optional[BackgroundData] = Field(
         default=None,
         description="Optional background questionnaire data",
     )
 
+    @field_validator("password")
+    @classmethod
+    def truncate_password(cls, v: str) -> str:
+        """Truncate password to 72 bytes for bcrypt compatibility."""
+        return v[:72] if len(v) > 72 else v
+
 
 class SignInRequest(BaseModel):
     """Request schema for user login."""
 
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., description="User password")
+    password: str = Field(..., max_length=72, description="User password (max 72 characters)")
+
+    @field_validator("password")
+    @classmethod
+    def truncate_password(cls, v: str) -> str:
+        """Truncate password to 72 bytes for bcrypt compatibility."""
+        return v[:72] if len(v) > 72 else v
 
 
 class UserProfile(BaseModel):
