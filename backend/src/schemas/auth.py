@@ -36,31 +36,35 @@ class SignUpRequest(BaseModel):
     """Request schema for user registration."""
 
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., min_length=8, max_length=72, description="Password (min 8, max 72 characters)")
+    password: str = Field(..., min_length=8, description="Password (min 8 characters, will be truncated to 72 for bcrypt)")
     name: str = Field(..., min_length=1, description="User's full name")
     background_data: Optional[BackgroundData] = Field(
         default=None,
         description="Optional background questionnaire data",
     )
 
-    @field_validator("password")
+    @field_validator("password", mode="before")
     @classmethod
     def truncate_password(cls, v: str) -> str:
         """Truncate password to 72 bytes for bcrypt compatibility."""
-        return v[:72] if len(v) > 72 else v
+        if isinstance(v, str) and len(v) > 72:
+            return v[:72]
+        return v
 
 
 class SignInRequest(BaseModel):
     """Request schema for user login."""
 
     email: EmailStr = Field(..., description="User email address")
-    password: str = Field(..., max_length=72, description="User password (max 72 characters)")
+    password: str = Field(..., description="User password (will be truncated to 72 for bcrypt)")
 
-    @field_validator("password")
+    @field_validator("password", mode="before")
     @classmethod
     def truncate_password(cls, v: str) -> str:
         """Truncate password to 72 bytes for bcrypt compatibility."""
-        return v[:72] if len(v) > 72 else v
+        if isinstance(v, str) and len(v) > 72:
+            return v[:72]
+        return v
 
 
 class UserProfile(BaseModel):
