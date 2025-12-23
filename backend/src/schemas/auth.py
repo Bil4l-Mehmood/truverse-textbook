@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class SignUpRequest(BaseModel):
@@ -16,11 +16,29 @@ class SignUpRequest(BaseModel):
     operating_system: Optional[str] = Field(None, description="Operating system")
     robotics_knowledge: Optional[str] = Field(default="Beginner", description="Robotics knowledge level")
 
+    @field_validator('password', mode='before')
+    @classmethod
+    def truncate_password(cls, v):
+        """Truncate password to 72 bytes (bcrypt limit)."""
+        if isinstance(v, str) and len(v.encode('utf-8')) > 72:
+            # Truncate to 72 bytes, accounting for multi-byte UTF-8 characters
+            return v.encode('utf-8')[:72].decode('utf-8', errors='ignore')
+        return v
+
 
 class SignInRequest(BaseModel):
     """Sign-in request schema."""
     email: EmailStr = Field(..., description="User email address")
     password: str = Field(..., description="User password")
+
+    @field_validator('password', mode='before')
+    @classmethod
+    def truncate_password(cls, v):
+        """Truncate password to 72 bytes (bcrypt limit)."""
+        if isinstance(v, str) and len(v.encode('utf-8')) > 72:
+            # Truncate to 72 bytes, accounting for multi-byte UTF-8 characters
+            return v.encode('utf-8')[:72].decode('utf-8', errors='ignore')
+        return v
 
 
 class UserProfile(BaseModel):
