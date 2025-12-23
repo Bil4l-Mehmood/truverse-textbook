@@ -4,9 +4,11 @@
 
 import type { User, BackgroundData } from '../store/authStore';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-backend.railway.app'  // Update with your production URL
-  : 'http://localhost:8000';
+// Get API base URL from environment or default to localhost for development
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ||
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : `${window.location.protocol}//${window.location.host}`);
 
 export interface SignUpData {
   email: string;

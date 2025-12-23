@@ -90,6 +90,18 @@ export default {
           "label": "Course Content"
         },
         {
+          "href": "/signin",
+          "label": "Sign In",
+          "position": "right",
+          "className": "navbar-signin-btn"
+        },
+        {
+          "href": "/signup",
+          "label": "Sign Up",
+          "position": "right",
+          "className": "navbar-signup-btn"
+        },
+        {
           "href": "https://github.com/truverse/ai-textbook-platform",
           "label": "GitHub",
           "position": "right"

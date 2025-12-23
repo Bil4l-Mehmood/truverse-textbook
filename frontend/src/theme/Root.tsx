@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from '@docusaurus/router';
-import ChatWidget from '../components/ChatWidget';
-import { useAuthStore } from '../store/authStore';
-import AuthGuard from '../components/Auth/AuthGuard';
-import '../css/auth-nav.css';
+import ChatWidget from '../../components/ChatWidget';
+import { useAuthStore } from '../../store/authStore';
+import AuthGuard from '../../components/Auth/AuthGuard';
+import '../../css/auth-nav.css';
 
 // Root theme component to inject ChatWidget and Auth links globally
 export default function Root({ children }: { children: React.ReactNode }) {

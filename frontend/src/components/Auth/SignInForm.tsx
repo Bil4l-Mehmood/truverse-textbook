@@ -1,11 +1,11 @@
 /**
  * Sign-in form component
- * Uses Better Auth for 50 bonus competition points
+ * Connects to FastAPI backend
  */
 
 import React, { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
-import { betterAuthSignIn } from '../../services/betterAuthService';
+import { signin } from '../../services/authService';
 
 export default function SignInForm() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -20,16 +20,16 @@ export default function SignInForm() {
     setError(null);
     setLoading(true);
 
-    console.log('[SignIn] Attempting sign in with Better Auth for:', email);
+    console.log('[SignIn] Attempting sign in for:', email);
 
     try {
-      const response = await betterAuthSignIn({ email, password });
+      const response = await signin({ email, password });
 
-      console.log('[SignIn] Sign in successful with Better Auth:', response.user);
+      console.log('[SignIn] Sign in successful:', response.user);
 
-      // Store auth state (convert Better Auth session to our format)
+      // Store auth state
       const authUser = {
-        id: response.user.id, // Better Auth returns UUID string, not integer
+        id: response.user.id,
         email: response.user.email,
         name: response.user.name,
         ros2_experience: response.user.ros2_experience,
@@ -39,8 +39,8 @@ export default function SignInForm() {
         robotics_knowledge: response.user.robotics_knowledge,
       };
 
-      console.log('[SignIn] Storing auth state:', { user: authUser, token: response.session.token });
-      setAuth(authUser, response.session.token);
+      console.log('[SignIn] Storing auth state:', { user: authUser, token: response.access_token });
+      setAuth(authUser, response.access_token);
 
       console.log('[SignIn] Auth state stored, about to redirect');
 
@@ -55,7 +55,7 @@ export default function SignInForm() {
         window.location.href = '/';
       }
     } catch (err) {
-      console.error('[SignIn] Better Auth sign in failed:', err);
+      console.error('[SignIn] Sign in failed:', err);
       const errorMessage = err instanceof Error ? err.message : 'Sign-in failed. Please try again.';
       setError(errorMessage);
     } finally {

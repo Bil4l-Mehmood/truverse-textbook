@@ -1,11 +1,11 @@
 /**
  * Sign-up form component with background questionnaire
- * Uses Better Auth for 50 bonus competition points
+ * Connects to FastAPI backend
  */
 
 import React, { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
-import { betterAuthSignUp } from '../../services/betterAuthService';
+import { signup } from '../../services/authService';
 
 export default function SignUpForm() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -59,23 +59,25 @@ export default function SignUpForm() {
     });
 
     try {
-      console.log('[SignUp] Calling Better Auth signup API...');
-      const response = await betterAuthSignUp({
+      console.log('[SignUp] Calling signup API...');
+      const response = await signup({
         email,
         password,
         name,
-        ros2_experience: ros2Experience,
-        gpu_model: gpuModel || undefined,
-        gpu_vram: gpuVram || undefined,
-        operating_system: operatingSystem || undefined,
-        robotics_knowledge: roboticsKnowledge,
+        background_data: {
+          ros2_experience: ros2Experience,
+          gpu_model: gpuModel || undefined,
+          gpu_vram: gpuVram || undefined,
+          operating_system: operatingSystem || undefined,
+          robotics_knowledge: roboticsKnowledge,
+        },
       });
 
-      console.log('[SignUp] Signup successful with Better Auth:', response.user);
+      console.log('[SignUp] Signup successful:', response.user);
 
-      // Store auth state (convert Better Auth session to our format)
+      // Store auth state
       const authUser = {
-        id: response.user.id, // UUID string, don't parseInt
+        id: response.user.id,
         email: response.user.email,
         name: response.user.name,
         ros2_experience: response.user.ros2_experience,
@@ -84,14 +86,14 @@ export default function SignUpForm() {
         operating_system: response.user.operating_system,
         robotics_knowledge: response.user.robotics_knowledge,
       };
-      setAuth(authUser, response.session.token);
+      setAuth(authUser, response.access_token);
 
       console.log('[SignUp] Auth state stored, redirecting to home...');
 
       // Redirect to home
       window.location.href = '/';
     } catch (err) {
-      console.error('[SignUp] Better Auth signup failed:', err);
+      console.error('[SignUp] Signup failed:', err);
       const errorMessage = err instanceof Error ? err.message : 'Sign-up failed. Please try again.';
       setError(errorMessage);
     } finally {
@@ -113,17 +115,17 @@ export default function SignUpForm() {
     console.log('[SignUp] Skipping questionnaire, creating account with defaults...');
 
     try {
-      const response = await betterAuthSignUp({
+      const response = await signup({
         email,
         password,
         name,
       });
 
-      console.log('[SignUp] Signup successful (skipped) with Better Auth:', response.user);
+      console.log('[SignUp] Signup successful (skipped):', response.user);
 
-      // Store auth state (convert Better Auth session to our format)
+      // Store auth state
       const authUser = {
-        id: response.user.id, // UUID string, don't parseInt
+        id: response.user.id,
         email: response.user.email,
         name: response.user.name,
         ros2_experience: response.user.ros2_experience,
@@ -132,12 +134,12 @@ export default function SignUpForm() {
         operating_system: response.user.operating_system,
         robotics_knowledge: response.user.robotics_knowledge,
       };
-      setAuth(authUser, response.session.token);
+      setAuth(authUser, response.access_token);
 
       console.log('[SignUp] Redirecting to home...');
       window.location.href = '/';
     } catch (err) {
-      console.error('[SignUp] Better Auth signup failed:', err);
+      console.error('[SignUp] Signup failed:', err);
       const errorMessage = err instanceof Error ? err.message : 'Sign-up failed. Please try again.';
       setError(errorMessage);
     } finally {

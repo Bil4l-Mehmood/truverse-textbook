@@ -2,9 +2,26 @@
  * API service for connecting to the RAG backend
  */
 
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-backend.railway.app'  // Update with your production URL
-  : 'http://localhost:8000';
+// Get API base URL from environment or default intelligently
+const getAPIBaseUrl = () => {
+  if (typeof window === 'undefined') return 'http://localhost:8000'; // SSR fallback
+
+  // First check environment variable
+  if (process.env.REACT_APP_API_BASE_URL) {
+    return process.env.REACT_APP_API_BASE_URL;
+  }
+
+  // If in production (Vercel), use relative path or backend domain
+  if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
+    // Assume backend is on the same domain (via proxy) or specific backend domain
+    return `${window.location.protocol}//${window.location.host}`;
+  }
+
+  // Default to localhost for development
+  return 'http://localhost:8000';
+};
+
+const API_BASE_URL = getAPIBaseUrl();
 
 export interface SearchResult {
   id: number;
