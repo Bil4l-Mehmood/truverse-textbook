@@ -53,11 +53,14 @@ async def signup(request: SignUpRequest, db: AsyncSession = Depends(get_db)):
         # Extract background data if provided
         background_data = request.background_data or {}
 
+        # Truncate password to 72 bytes for bcrypt compatibility
+        truncated_password = request.password[:72] if len(request.password) > 72 else request.password
+
         # Create user
         user = await create_user(
             db=db,
             email=request.email,
-            password=request.password,
+            password=truncated_password,
             name=request.name,
             ros2_experience=background_data.ros2_experience if request.background_data else "Beginner",
             gpu_model=background_data.gpu_model if request.background_data else None,
@@ -108,8 +111,11 @@ async def signin(request: SignInRequest, db: AsyncSession = Depends(get_db)):
     **Errors:**
     - 401 Unauthorized: Incorrect email or password
     """
+    # Truncate password to 72 bytes for bcrypt compatibility
+    truncated_password = request.password[:72] if len(request.password) > 72 else request.password
+
     # Authenticate user
-    user = await authenticate_user(db, request.email, request.password)
+    user = await authenticate_user(db, request.email, truncated_password)
 
     if not user:
         logger.warning(f"Failed sign-in attempt for email: {request.email}")
