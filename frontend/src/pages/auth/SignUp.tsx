@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { signup } from '../../services/authService';
 import { useAuthStore } from '../../store/authStore';
 import styles from './AuthPages.module.css';
 
 export default function SignUp() {
-  const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   const [formData, setFormData] = useState({
@@ -70,7 +68,7 @@ export default function SignUp() {
       setAuth(response.access_token, response.user);
 
       // Redirect to questionnaire to collect background info
-      navigate('/auth/questionnaire');
+      window.location.href = '/auth/questionnaire';
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Sign up failed';
       setApiError(message);

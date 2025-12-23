@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { signin } from '../../services/authService';
 import { useAuthStore } from '../../store/authStore';
 import styles from './AuthPages.module.css';
 
 export default function SignIn() {
-  const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   const [formData, setFormData] = useState({
@@ -53,7 +51,7 @@ export default function SignIn() {
       setAuth(response.access_token, response.user);
 
       // Redirect to home
-      navigate('/');
+      window.location.href = '/';
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Sign in failed';
       setApiError(message);

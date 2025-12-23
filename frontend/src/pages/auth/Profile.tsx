@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getProfile, updateProfile } from '../../services/authService';
+import { updateProfile } from '../../services/authService';
 import { useAuthStore } from '../../store/authStore';
 import styles from './AuthPages.module.css';
 
 export default function Profile() {
-  const navigate = useNavigate();
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
@@ -13,9 +11,9 @@ export default function Profile() {
 
   React.useEffect(() => {
     if (!token || !user) {
-      navigate('/auth/signin');
+      window.location.href = '/auth/signin';
     }
-  }, [token, user, navigate]);
+  }, [token, user]);
 
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +63,7 @@ export default function Profile() {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    window.location.href = '/';
   };
 
   if (!user) {

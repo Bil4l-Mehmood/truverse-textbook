@@ -1,5 +1,5 @@
 import React from 'react';
-import SignIn from '../pages/auth/SignIn';
+import SignIn from './auth/SignIn';
 
 export default function SignInPage() {
   return <SignIn />;
