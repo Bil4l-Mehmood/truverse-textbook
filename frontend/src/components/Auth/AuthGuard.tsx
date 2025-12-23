@@ -1,43 +1,34 @@
-/**
- * Auth Guard component to protect routes that require authentication
- */
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
 
 interface AuthGuardProps {
   children: React.ReactNode;
-  fallbackPath?: string;
 }
 
-export default function AuthGuard({ children, fallbackPath = '/signin' }: AuthGuardProps) {
-  const { isAuthenticated, user, token } = useAuthStore();
+export default function AuthGuard({ children }: AuthGuardProps) {
+  const { isAuthenticated, loadFromLocalStorage } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is authenticated
-    if (!isAuthenticated || !user || !token) {
-      console.log('[AuthGuard] User not authenticated, redirecting to sign in...');
+    loadFromLocalStorage();
+    setIsLoading(false);
+  }, [loadFromLocalStorage]);
 
-      // Save the intended destination for redirect after login
-      const currentPath = window.location.pathname + window.location.search;
-      if (currentPath !== fallbackPath) {
-        sessionStorage.setItem('redirectAfterLogin', currentPath);
-      }
-
-      // Redirect to sign in
-      window.location.href = fallbackPath;
-    } else {
-      console.log('[AuthGuard] User authenticated:', user.email);
-    }
-  }, [isAuthenticated, user, token, fallbackPath]);
-
-  // Don't render children if not authenticated
-  if (!isAuthenticated || !user || !token) {
+  // Show loading while checking auth
+  if (isLoading) {
     return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <p>Checking authentication...</p>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <p>Loading...</p>
       </div>
     );
+  }
+
+  // Redirect to signin if not authenticated
+  if (!isAuthenticated) {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/auth/signin';
+    }
+    return null;
   }
 
   return <>{children}</>;

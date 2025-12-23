@@ -7,9 +7,14 @@ import '../css/auth-nav.css';
 
 // Root theme component to inject ChatWidget and Auth links globally
 export default function Root({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, user, logout } = useAuthStore();
+  const { isAuthenticated, user, logout, loadFromLocalStorage } = useAuthStore();
   const location = useLocation();
   const [isDocsRoute, setIsDocsRoute] = useState(false);
+
+  // Load auth from localStorage on app start
+  useEffect(() => {
+    loadFromLocalStorage();
+  }, [loadFromLocalStorage]);
 
   // Check if current route requires authentication (docs/course content)
   useEffect(() => {

@@ -38,6 +38,26 @@ export default [
     exact: true
   },
   {
+    path: '/auth/Profile',
+    component: ComponentCreator('/auth/Profile', '238'),
+    exact: true
+  },
+  {
+    path: '/auth/Questionnaire',
+    component: ComponentCreator('/auth/Questionnaire', '3e8'),
+    exact: true
+  },
+  {
+    path: '/auth/SignIn',
+    component: ComponentCreator('/auth/SignIn', 'd1b'),
+    exact: true
+  },
+  {
+    path: '/auth/SignUp',
+    component: ComponentCreator('/auth/SignUp', 'ae6'),
+    exact: true
+  },
+  {
     path: '/markdown-page',
     component: ComponentCreator('/markdown-page', '3d7'),
     exact: true

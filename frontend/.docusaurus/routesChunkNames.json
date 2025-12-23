@@ -42,6 +42,34 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
+  "/auth/Profile-238": {
+    "__comp": "__comp---site-src-pages-auth-profile-tsx-440-2a6",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "config": "config---profile-5-e-9-164"
+  },
+  "/auth/Questionnaire-3e8": {
+    "__comp": "__comp---site-src-pages-auth-questionnaire-tsx-33-c-b64",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "config": "config---profile-5-e-9-164"
+  },
+  "/auth/SignIn-d1b": {
+    "__comp": "__comp---site-src-pages-auth-sign-in-tsx-6-c-5-636",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "config": "config---profile-5-e-9-164"
+  },
+  "/auth/SignUp-ae6": {
+    "__comp": "__comp---site-src-pages-auth-sign-up-tsxd-4-c-8fb",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "config": "config---profile-5-e-9-164"
+  },
   "/markdown-page-3d7": {
     "__comp": "__comp---theme-mdx-page-1-f-3-b90",
     "__context": {

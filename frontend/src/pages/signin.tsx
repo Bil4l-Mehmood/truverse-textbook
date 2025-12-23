@@ -1,15 +1,6 @@
-/**
- * Sign-in page
- */
-
 import React from 'react';
-import Layout from '@theme/Layout';
-import SignInForm from '../components/Auth/SignInForm';
+import SignIn from '../pages/auth/SignIn';
 
 export default function SignInPage() {
-  return (
-    <Layout title="Sign In" description="Sign in to your account">
-      <SignInForm />
-    </Layout>
-  );
+  return <SignIn />;
 }

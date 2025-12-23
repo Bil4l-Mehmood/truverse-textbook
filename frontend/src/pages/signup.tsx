@@ -1,15 +1,6 @@
-/**
- * Sign-up page
- */
-
 import React from 'react';
-import Layout from '@theme/Layout';
-import SignUpForm from '../components/Auth/SignUpForm';
+import SignUp from '../pages/auth/SignUp';
 
 export default function SignUpPage() {
-  return (
-    <Layout title="Sign Up" description="Create your account">
-      <SignUpForm />
-    </Layout>
-  );
+  return <SignUp />;
 }

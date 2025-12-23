@@ -1,88 +1,77 @@
 /**
- * Authentication state management using Zustand.
- * Manages user authentication state, JWT token, and user profile.
+ * Zustand auth store for managing global authentication state
+ * Persists token and user data to localStorage
  */
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-
-export interface BackgroundData {
-  ros2_experience: string;
-  gpu_model?: string;
-  gpu_vram?: string;
-  operating_system?: string;
-  robotics_knowledge: string;
-}
-
-export interface User {
-  id: number;
-  email: string;
-  name: string;
-  ros2_experience: string;
-  gpu_model?: string;
-  gpu_vram?: string;
-  operating_system?: string;
-  robotics_knowledge: string;
-  created_at: string;
-}
+import { User } from '../services/authService';
 
 interface AuthState {
+  // State
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
 
   // Actions
+  setAuth: (token: string, user: User) => void;
   setUser: (user: User) => void;
-  setToken: (token: string) => void;
-  setAuth: (user: User, token: string) => void;
   logout: () => void;
-  updateUser: (updates: Partial<User>) => void;
+  loadFromLocalStorage: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
+export const useAuthStore = create<AuthState>((set) => ({
+  // Initial state
+  user: null,
+  token: null,
+  isAuthenticated: false,
+
+  // Action: Set auth (after successful login)
+  setAuth: (token: string, user: User) => {
+    localStorage.setItem('auth_token', token);
+    localStorage.setItem('auth_user', JSON.stringify(user));
+    set({
+      token,
+      user,
+      isAuthenticated: true,
+    });
+  },
+
+  // Action: Update user profile
+  setUser: (user: User) => {
+    localStorage.setItem('auth_user', JSON.stringify(user));
+    set({ user });
+  },
+
+  // Action: Logout
+  logout: () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    set({
       token: null,
+      user: null,
       isAuthenticated: false,
+    });
+  },
 
-      setUser: (user) =>
-        set({
-          user,
-          isAuthenticated: true,
-        }),
+  // Action: Load from localStorage (call on app start)
+  loadFromLocalStorage: () => {
+    try {
+      const token = localStorage.getItem('auth_token');
+      const userJson = localStorage.getItem('auth_user');
 
-      setToken: (token) =>
+      if (token && userJson) {
+        const user = JSON.parse(userJson);
         set({
           token,
-        }),
-
-      setAuth: (user, token) =>
-        set({
           user,
-          token,
           isAuthenticated: true,
-        }),
-
-      logout: () =>
-        set({
-          user: null,
-          token: null,
-          isAuthenticated: false,
-        }),
-
-      updateUser: (updates) =>
-        set((state) => ({
-          user: state.user ? { ...state.user, ...updates } : null,
-        })),
-    }),
-    {
-      name: 'auth-storage', // localStorage key
-      partialize: (state) => ({
-        user: state.user,
-        token: state.token,
-        isAuthenticated: state.isAuthenticated,
-      }),
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load auth from localStorage:', error);
+      // Clear invalid data
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_user');
     }
-  )
-);
+  },
+}));

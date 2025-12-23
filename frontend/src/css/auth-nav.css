@@ -1,71 +1,59 @@
-/* Auth Navigation Links in Navbar */
+/* Auth Navigation Styling */
 
 .auth-nav-container {
-  position: fixed;
-  top: 0;
-  right: 140px;
-  height: var(--ifm-navbar-height);
   display: flex;
+  gap: 12px;
   align-items: center;
-  gap: 0.75rem;
-  z-index: 200;
-  pointer-events: none;
-  padding-right: 1rem;
-}
-
-.auth-nav-container > * {
-  pointer-events: auto;
+  margin-left: auto;
+  padding-right: 16px;
 }
 
 .auth-nav-container .navbar__link {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--ifm-navbar-link-color);
+  transition: all 0.2s ease;
 }
 
 .auth-nav-container .navbar__link:hover {
-  color: var(--ifm-navbar-link-hover-color);
-  background: var(--ifm-color-emphasis-100);
+  background-color: rgba(102, 126, 234, 0.1);
+  color: #667eea;
 }
 
 .auth-nav-container .navbar__link--active {
-  background: var(--ifm-color-primary);
-  color: white !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
 }
 
 .auth-nav-container .navbar__link--active:hover {
-  background: var(--ifm-color-primary-dark);
-  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.auth-nav-container .auth-logout-btn {
+.auth-logout-btn {
+  background-color: rgba(220, 53, 69, 0.1);
   color: #dc3545;
-  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.auth-nav-container .auth-logout-btn:hover {
-  background: rgba(220, 53, 69, 0.1);
+.auth-logout-btn:hover {
+  background-color: rgba(220, 53, 69, 0.2);
 }
 
-@media (max-width: 996px) {
+/* Responsive design */
+@media (max-width: 768px) {
   .auth-nav-container {
-    position: static;
-    height: auto;
-    padding: 0.5rem 1rem;
-    border-top: 1px solid var(--ifm-color-emphasis-200);
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
+    padding-right: 8px;
   }
 
   .auth-nav-container .navbar__link {
-    width: 100%;
-    text-align: center;
+    padding: 6px 10px;
+    font-size: 14px;
   }
 }
