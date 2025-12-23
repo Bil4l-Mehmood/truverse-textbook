@@ -39,10 +39,13 @@ def get_bearer_token(authorization: str = Header(None)) -> str:
 async def signup(request: SignUpRequest, db: AsyncSession = Depends(get_db)):
     """Sign up a new user with email, password, and optional background data."""
     try:
+        # Truncate password to bcrypt max length (72 bytes) - silently handles long passwords
+        password = request.password[:72] if len(request.password) > 72 else request.password
+
         user = await create_user(
             db=db,
             email=request.email,
-            password=request.password,
+            password=password,
             name=request.name,
             ros2_experience=request.ros2_experience or "Beginner",
             gpu_model=request.gpu_model,
@@ -78,7 +81,9 @@ async def signup(request: SignUpRequest, db: AsyncSession = Depends(get_db)):
 async def signin(request: SignInRequest, db: AsyncSession = Depends(get_db)):
     """Sign in user with email and password."""
     try:
-        user = await authenticate_user(db, request.email, request.password)
+        # Truncate password to bcrypt max length (72 bytes) - silently handles long passwords
+        password = request.password[:72] if len(request.password) > 72 else request.password
+        user = await authenticate_user(db, request.email, password)
 
         if not user:
             logger.warning(f"Failed signin attempt for: {request.email}")
