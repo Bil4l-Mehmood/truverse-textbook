@@ -1,52 +1,43 @@
 /**
- * Authentication service for API calls to the backend
+ * Authentication service - API client for backend auth endpoints
  */
 
-import type { User, BackgroundData } from '../store/authStore';
+const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+  ? 'http://localhost:8000'
+  : `${window.location.protocol}//${window.location.host}`;
 
-// Get API base URL from environment or default intelligently
-const getAuthAPIBaseUrl = (): string => {
-  // Check for environment variable (only in build-time, replaced by webpack)
-  try {
-    if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_BASE_URL) {
-      return process.env.REACT_APP_API_BASE_URL;
-    }
-  } catch (e) {
-    // process might not be defined in browser context
-  }
-
-  // Check if we're in browser
-  if (typeof window === 'undefined') {
-    return 'http://localhost:8000'; // SSR fallback
-  }
-
-  // If localhost, use localhost backend
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://localhost:8000';
-  }
-
-  // For production/Vercel, use same domain
-  return `${window.location.protocol}//${window.location.host}`;
-};
-
-const API_BASE_URL = getAuthAPIBaseUrl();
-
-export interface SignUpData {
+export interface User {
+  id: number;
   email: string;
-  password: string;
   name: string;
-  background_data?: BackgroundData;
-}
-
-export interface SignInData {
-  email: string;
-  password: string;
+  ros2_experience: string;
+  gpu_model?: string;
+  gpu_vram?: string;
+  operating_system?: string;
+  robotics_knowledge: string;
+  created_at: string;
 }
 
 export interface AuthResponse {
   access_token: string;
   token_type: string;
   user: User;
+}
+
+export interface SignUpData {
+  email: string;
+  password: string;
+  name: string;
+  ros2_experience?: string;
+  gpu_model?: string;
+  gpu_vram?: string;
+  operating_system?: string;
+  robotics_knowledge?: string;
+}
+
+export interface SignInData {
+  email: string;
+  password: string;
 }
 
 export interface UpdateProfileData {
@@ -71,17 +62,11 @@ export async function signup(data: SignUpData): Promise<AuthResponse> {
     });
 
     if (!response.ok) {
-      let errorMessage = 'Sign-up failed';
-      try {
-        const error = await response.json();
-        errorMessage = error.detail || error.message || 'Sign-up failed';
-      } catch {
-        errorMessage = `Sign-up failed (${response.status} ${response.statusText})`;
-      }
-      throw new Error(errorMessage);
+      const error = await response.json();
+      throw new Error(error.detail || 'Sign-up failed');
     }
 
-    return response.json();
+    return await response.json();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Sign-up failed - Network error';
     console.error('[AuthService] Signup error:', message);
@@ -90,7 +75,7 @@ export async function signup(data: SignUpData): Promise<AuthResponse> {
 }
 
 /**
- * Sign in an existing user
+ * Sign in a user
  */
 export async function signin(data: SignInData): Promise<AuthResponse> {
   try {
@@ -103,17 +88,11 @@ export async function signin(data: SignInData): Promise<AuthResponse> {
     });
 
     if (!response.ok) {
-      let errorMessage = 'Sign-in failed';
-      try {
-        const error = await response.json();
-        errorMessage = error.detail || error.message || 'Sign-in failed';
-      } catch {
-        errorMessage = `Sign-in failed (${response.status} ${response.statusText})`;
-      }
-      throw new Error(errorMessage);
+      const error = await response.json();
+      throw new Error(error.detail || 'Sign-in failed');
     }
 
-    return response.json();
+    return await response.json();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Sign-in failed - Network error';
     console.error('[AuthService] Signin error:', message);
@@ -122,7 +101,7 @@ export async function signin(data: SignInData): Promise<AuthResponse> {
 }
 
 /**
- * Get current user profile
+ * Get user profile (requires JWT token)
  */
 export async function getProfile(token: string): Promise<User> {
   try {
@@ -135,17 +114,11 @@ export async function getProfile(token: string): Promise<User> {
     });
 
     if (!response.ok) {
-      let errorMessage = 'Failed to fetch profile';
-      try {
-        const error = await response.json();
-        errorMessage = error.detail || error.message || 'Failed to fetch profile';
-      } catch {
-        errorMessage = `Failed to fetch profile (${response.status} ${response.statusText})`;
-      }
-      throw new Error(errorMessage);
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to fetch profile');
     }
 
-    return response.json();
+    return await response.json();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to fetch profile - Network error';
     console.error('[AuthService] Get profile error:', message);
@@ -154,12 +127,9 @@ export async function getProfile(token: string): Promise<User> {
 }
 
 /**
- * Update user profile
+ * Update user profile (requires JWT token)
  */
-export async function updateProfile(
-  token: string,
-  data: UpdateProfileData
-): Promise<User> {
+export async function updateProfile(token: string, data: UpdateProfileData): Promise<User> {
   try {
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/profile`, {
       method: 'PUT',
@@ -171,17 +141,11 @@ export async function updateProfile(
     });
 
     if (!response.ok) {
-      let errorMessage = 'Failed to update profile';
-      try {
-        const error = await response.json();
-        errorMessage = error.detail || error.message || 'Failed to update profile';
-      } catch {
-        errorMessage = `Failed to update profile (${response.status} ${response.statusText})`;
-      }
-      throw new Error(errorMessage);
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to update profile');
     }
 
-    return response.json();
+    return await response.json();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to update profile - Network error';
     console.error('[AuthService] Update profile error:', message);
