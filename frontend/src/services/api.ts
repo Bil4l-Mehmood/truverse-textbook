@@ -3,22 +3,34 @@
  */
 
 // Get API base URL from environment or default intelligently
-const getAPIBaseUrl = () => {
-  if (typeof window === 'undefined') return 'http://localhost:8000'; // SSR fallback
-
-  // First check environment variable
-  if (process.env.REACT_APP_API_BASE_URL) {
-    return process.env.REACT_APP_API_BASE_URL;
+const getAPIBaseUrl = (): string => {
+  // Check for environment variable (only in build-time, replaced by webpack)
+  try {
+    if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_BASE_URL) {
+      return process.env.REACT_APP_API_BASE_URL;
+    }
+  } catch (e) {
+    // process might not be defined in browser context
   }
 
-  // If in production (Vercel), use relative path or backend domain
-  if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
-    // Assume backend is on the same domain (via proxy) or specific backend domain
-    return `${window.location.protocol}//${window.location.host}`;
+  // Check if we're in browser
+  if (typeof window === 'undefined') {
+    return 'http://localhost:8000'; // SSR fallback
   }
 
-  // Default to localhost for development
-  return 'http://localhost:8000';
+  // If localhost, use localhost backend
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:8000';
+  }
+
+  // For production/Vercel, try to detect backend URL
+  // Option 1: Check for window.__API_BASE_URL__ if set globally
+  if (typeof (window as any).__API_BASE_URL__ !== 'undefined') {
+    return (window as any).__API_BASE_URL__;
+  }
+
+  // Option 2: Use same domain (assumes API is served from same domain or via proxy)
+  return `${window.location.protocol}//${window.location.host}`;
 };
 
 const API_BASE_URL = getAPIBaseUrl();
