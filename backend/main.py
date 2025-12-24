@@ -139,9 +139,11 @@ async def status():
 # Include API routers
 from src.api.routes.search import router as search_router
 from src.api.routes.auth import router as auth_router
+from src.api.skills import router as skills_router
 
 app.include_router(search_router, prefix="/api/v1", tags=["search"])
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
+app.include_router(skills_router, prefix="/api/v1/skills", tags=["skills"])
 
 
 if __name__ == "__main__":

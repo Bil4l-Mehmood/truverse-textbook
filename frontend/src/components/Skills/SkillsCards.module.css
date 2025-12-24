@@ -1,0 +1,349 @@
+.hardwareCard,
+.ros2Card,
+.errorCard,
+.clarificationCard {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.componentName {
+  margin: 0 !important;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.note {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  margin: 8px 0 12px 0;
+  padding: 8px;
+  background: #f5f5f5;
+  border-left: 3px solid #667eea;
+}
+
+/* Hardware Card Styles */
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.specItem {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+}
+
+.specItem label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.specItem p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.price {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.useCases {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.useCases label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.useCases ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.useCases li {
+  padding: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ROS2 Card Styles */
+.taskDescription {
+  margin: 12px 0;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+
+.taskDescription label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.taskDescription p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.commandBlock {
+  margin: 16px 0;
+}
+
+.commandHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.commandHeader label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  text-transform: uppercase;
+}
+
+.copyBtn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyBtn:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
+.commandCode {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.explanation {
+  margin: 16px 0;
+  padding: 12px;
+  background: #f0f8ff;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
+}
+
+.explanation label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.explanation p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.parameters {
+  margin-top: 16px;
+}
+
+.parameters label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.parametersTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.parametersTable th {
+  background: #f5f5f5;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #e0e0e0;
+  color: #333;
+}
+
+.parametersTable td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.paramName {
+  font-family: 'Courier New', monospace;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.paramDefault {
+  color: #999;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+/* Error and Clarification Styles */
+.errorCard,
+.clarificationCard {
+  background: #fff5f5;
+  border-color: #ffdddd;
+  text-align: center;
+}
+
+.errorIcon,
+.clarificationIcon {
+  font-size: 32px;
+  margin: 0 0 12px 0;
+}
+
+.errorMessage,
+.clarificationText {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.errorCard .errorMessage {
+  color: #dc3545;
+}
+
+.clarificationCard {
+  background: #fff9e6;
+  border-color: #ffe6b3;
+}
+
+.clarificationCard .clarificationText {
+  color: #856404;
+}
+
+.suggestion {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.suggestions {
+  margin-top: 12px;
+  text-align: left;
+  padding: 12px;
+  background: white;
+  border-radius: 4px;
+}
+
+.suggestions p {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 4px 0 4px 16px;
+  font-size: 13px;
+  color: #555;
+  position: relative;
+}
+
+.suggestions li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .specsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .hardwareCard,
+  .ros2Card,
+  .errorCard,
+  .clarificationCard {
+    padding: 12px;
+  }
+
+  .commandCode {
+    font-size: 12px;
+  }
+
+  .parametersTable {
+    font-size: 12px;
+  }
+
+  .parametersTable th,
+  .parametersTable td {
+    padding: 6px 8px;
+  }
+}
