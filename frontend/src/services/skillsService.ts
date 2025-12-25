@@ -2,9 +2,8 @@
  * Skills service for interacting with Claude Code Skills API
  */
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-  ? 'http://localhost:8000'
-  : `${window.location.protocol}//${window.location.host}`;
+// Get API base URL - point to Railway backend in production
+const API_BASE_URL = 'https://truverse-textbook-production.up.railway.app';
 
 export interface HardwareSpec {
   component: string;

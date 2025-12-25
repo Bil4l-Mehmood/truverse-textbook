@@ -2,26 +2,8 @@
  * API service for connecting to the RAG backend
  */
 
-// Get API base URL - pointing to Railway backend
-const getAPIBaseUrl = (): string => {
-  return 'https://truverse-textbook-production.up.railway.app';
-
-  // If localhost, use localhost backend
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://localhost:8000';
-  }
-
-  // For production/Vercel, try to detect backend URL
-  // Option 1: Check for window.__API_BASE_URL__ if set globally
-  if (typeof (window as any).__API_BASE_URL__ !== 'undefined') {
-    return (window as any).__API_BASE_URL__;
-  }
-
-  // Option 2: Use same domain (assumes API is served from same domain or via proxy)
-  return `${window.location.protocol}//${window.location.host}`;
-};
-
-const API_BASE_URL = getAPIBaseUrl();
+// Get API base URL - pointing to Railway backend in production
+const API_BASE_URL = 'https://truverse-textbook-production.up.railway.app';
 
 export interface SearchResult {
   id: number;

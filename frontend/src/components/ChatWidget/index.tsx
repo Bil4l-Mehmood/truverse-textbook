@@ -27,8 +27,13 @@ const ChatWidget: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-  // Handle text selection
+  // Handle text selection (only on client-side)
   useEffect(() => {
+    // Only set up event listener on client-side
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const handleTextSelection = () => {
       const selected = window.getSelection()?.toString().trim();
       if (selected && selected.length > 0) {

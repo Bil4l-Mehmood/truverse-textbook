@@ -1,6 +1,6 @@
 /**
  * Zustand auth store for managing global authentication state
- * Persists token and user data to localStorage
+ * Persists token and user data to localStorage (client-side only)
  */
 
 import { create } from 'zustand';
@@ -19,6 +19,14 @@ interface AuthState {
   loadFromLocalStorage: () => void;
 }
 
+// Helper to safely access localStorage (only available on client)
+const getLocalStorage = () => {
+  if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+    return window.localStorage;
+  }
+  return null;
+};
+
 export const useAuthStore = create<AuthState>((set) => ({
   // Initial state
   user: null,
@@ -27,8 +35,11 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   // Action: Set auth (after successful login)
   setAuth: (token: string, user: User) => {
-    localStorage.setItem('auth_token', token);
-    localStorage.setItem('auth_user', JSON.stringify(user));
+    const storage = getLocalStorage();
+    if (storage) {
+      storage.setItem('auth_token', token);
+      storage.setItem('auth_user', JSON.stringify(user));
+    }
     set({
       token,
       user,
@@ -38,14 +49,20 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   // Action: Update user profile
   setUser: (user: User) => {
-    localStorage.setItem('auth_user', JSON.stringify(user));
+    const storage = getLocalStorage();
+    if (storage) {
+      storage.setItem('auth_user', JSON.stringify(user));
+    }
     set({ user });
   },
 
   // Action: Logout
   logout: () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('auth_user');
+    const storage = getLocalStorage();
+    if (storage) {
+      storage.removeItem('auth_token');
+      storage.removeItem('auth_user');
+    }
     set({
       token: null,
       user: null,
@@ -55,9 +72,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   // Action: Load from localStorage (call on app start)
   loadFromLocalStorage: () => {
+    const storage = getLocalStorage();
+    if (!storage) return;
+
     try {
-      const token = localStorage.getItem('auth_token');
-      const userJson = localStorage.getItem('auth_user');
+      const token = storage.getItem('auth_token');
+      const userJson = storage.getItem('auth_user');
 
       if (token && userJson) {
         const user = JSON.parse(userJson);
@@ -70,8 +90,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     } catch (error) {
       console.error('Failed to load auth from localStorage:', error);
       // Clear invalid data
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('auth_user');
+      storage.removeItem('auth_token');
+      storage.removeItem('auth_user');
     }
   },
 }));

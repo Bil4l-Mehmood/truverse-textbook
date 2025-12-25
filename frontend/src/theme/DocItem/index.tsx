@@ -20,6 +20,11 @@ export default function DocItemWrapper(props: Props) {
 
   // Extract document metadata from the DOM on mount
   useEffect(() => {
+    // Only run on client-side
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
     try {
       // Extract chapter title from h1 or page title
       const titleElement = document.querySelector('h1') || document.querySelector('[class*="title"]');

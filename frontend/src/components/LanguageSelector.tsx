@@ -13,6 +13,12 @@ export default function LanguageSelector() {
 
   const handleLanguageChange = (lang: Language) => {
     setCurrentLang(lang);
+
+    // Only proceed if window is available (client-side)
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     localStorage.setItem('language', lang);
 
     // Navigate to the appropriate language path
