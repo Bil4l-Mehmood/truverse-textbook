@@ -2,21 +2,9 @@
  * API service for connecting to the RAG backend
  */
 
-// Get API base URL from environment or default intelligently
+// Get API base URL - pointing to Railway backend
 const getAPIBaseUrl = (): string => {
-  // Check for environment variable (only in build-time, replaced by webpack)
-  try {
-    if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_BASE_URL) {
-      return process.env.REACT_APP_API_BASE_URL;
-    }
-  } catch (e) {
-    // process might not be defined in browser context
-  }
-
-  // Check if we're in browser
-  if (typeof window === 'undefined') {
-    return 'http://localhost:8000'; // SSR fallback
-  }
+  return 'https://truverse-textbook-production.up.railway.app';
 
   // If localhost, use localhost backend
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {

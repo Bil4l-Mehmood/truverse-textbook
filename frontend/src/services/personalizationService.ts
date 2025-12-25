@@ -2,9 +2,7 @@
  * Personalization service for interacting with the personalization API
  */
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-  ? 'http://localhost:8000'
-  : `${window.location.protocol}//${window.location.host}`;
+const API_BASE_URL = 'https://truverse-textbook-production.up.railway.app';
 
 export interface PersonalizeResponse {
   success: boolean;
