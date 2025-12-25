@@ -1,0 +1,37 @@
+/* DocItem Customization */
+.docItemWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.personalizeButtonWrapper {
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.translateButtonWrapper {
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+[data-theme='dark'] .personalizeButtonWrapper {
+  border-top-color: #2d2d2d;
+}
+
+[data-theme='dark'] .translateButtonWrapper {
+  border-top-color: #2d2d2d;
+}
+
+@media (max-width: 768px) {
+  .personalizeButtonWrapper {
+    margin-top: 16px;
+    padding: 16px 0;
+  }
+
+  .translateButtonWrapper {
+    margin-top: 16px;
+    padding: 16px 0;
+  }
+}

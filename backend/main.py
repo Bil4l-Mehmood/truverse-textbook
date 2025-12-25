@@ -16,7 +16,7 @@ from src.core.config import settings
 from src.database.postgres import init_db, close_db
 from src.database.qdrant import qdrant_manager
 from src.utils.logging import setup_logging
-from src.models import User, ChatSession, ChatMessage  # Import models to register with SQLAlchemy
+from src.models import User, ChatSession, ChatMessage, PersonalizationPreference  # Import models to register with SQLAlchemy
 
 # Setup logging
 logger = setup_logging()
@@ -140,10 +140,14 @@ async def status():
 from src.api.routes.search import router as search_router
 from src.api.routes.auth import router as auth_router
 from src.api.skills import router as skills_router
+from src.api.personalization import router as personalization_router
+from src.api.translation import router as translation_router
 
 app.include_router(search_router, prefix="/api/v1", tags=["search"])
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
 app.include_router(skills_router, prefix="/api/v1/skills", tags=["skills"])
+app.include_router(personalization_router, prefix="/api/v1/personalize", tags=["personalization"])
+app.include_router(translation_router, prefix="/api/v1/translate", tags=["translation"])
 
 
 if __name__ == "__main__":

@@ -2,10 +2,11 @@
  * RTL (Right-to-Left) styling for Urdu and other RTL languages
  */
 
-/* Global RTL support */
+/* Global RTL support with Urdu font */
 html[lang="ur-PK"],
 html[lang="ur"] {
   direction: rtl;
+  font-family: 'Noto Naskh Arabic', 'Arial Unicode MS', 'Segoe UI', sans-serif;
 }
 
 body[dir="rtl"],

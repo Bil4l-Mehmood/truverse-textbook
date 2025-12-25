@@ -4,6 +4,9 @@
  * work well for content-centric websites.
  */
 
+/* Import Google Fonts for Urdu support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap');
+
 /* Import RTL styling for Urdu and other RTL languages */
 @import url('./rtl.css');
 

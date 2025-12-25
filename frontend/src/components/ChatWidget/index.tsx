@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { sendChatMessage, ChatMessage, SearchResult } from '../../services/api';
+import { lookupHardware, generateROS2Command, HardwareSpec, ROS2Command } from '../../services/skillsService';
+import HardwareSpecCard from '../Skills/HardwareSpecCard';
+import ROS2CommandCard from '../Skills/ROS2CommandCard';
 import './styles.css';
+
+interface ExtendedMessage extends ChatMessage {
+  skillType?: 'hardware' | 'ros2';
+  skillData?: HardwareSpec | ROS2Command;
+}
 
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ExtendedMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | undefined>();
@@ -37,9 +45,10 @@ const ChatWidget: React.FC = () => {
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
-    const userMessage: ChatMessage = {
+    const trimmedInput = inputValue.trim();
+    const userMessage: ExtendedMessage = {
       role: 'user',
-      content: inputValue,
+      content: trimmedInput,
       timestamp: new Date(),
     };
 
@@ -48,13 +57,52 @@ const ChatWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendChatMessage(inputValue, sessionId);
+      // Check for hardware skill command: /hardware <component>
+      if (trimmedInput.startsWith('/hardware ')) {
+        const component = trimmedInput.replace('/hardware ', '').trim();
+        if (!component) {
+          throw new Error('Please specify a component name. Usage: /hardware <component>');
+        }
+
+        const hardwareData = await lookupHardware(component);
+        const assistantMessage: ExtendedMessage = {
+          role: 'assistant',
+          content: `Hardware specifications for ${component}:`,
+          timestamp: new Date(),
+          skillType: 'hardware',
+          skillData: hardwareData,
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        return;
+      }
+
+      // Check for ROS2 skill command: /ros2 <task>
+      if (trimmedInput.startsWith('/ros2 ')) {
+        const task = trimmedInput.replace('/ros2 ', '').trim();
+        if (!task) {
+          throw new Error('Please specify a task. Usage: /ros2 <task>');
+        }
+
+        const ros2Data = await generateROS2Command(task);
+        const assistantMessage: ExtendedMessage = {
+          role: 'assistant',
+          content: `ROS 2 command generation:`,
+          timestamp: new Date(),
+          skillType: 'ros2',
+          skillData: ros2Data,
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        return;
+      }
+
+      // Fall back to RAG chat for regular queries
+      const response = await sendChatMessage(trimmedInput, sessionId);
 
       if (!sessionId) {
         setSessionId(response.session_id);
       }
 
-      const assistantMessage: ChatMessage = {
+      const assistantMessage: ExtendedMessage = {
         role: 'assistant',
         content: response.answer,
         timestamp: new Date(),
@@ -63,9 +111,9 @@ const ChatWidget: React.FC = () => {
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      const errorMessage: ChatMessage = {
+      const errorMessage: ExtendedMessage = {
         role: 'assistant',
-        content: `Sorry, I encountered an error: ${error.message}. Make sure the backend is running at http://localhost:8000`,
+        content: `Sorry, I encountered an error: ${error instanceof Error ? error.message : 'Unknown error'}. Make sure the backend is running at http://localhost:8000`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -125,25 +173,38 @@ const ChatWidget: React.FC = () => {
                   <li>Computer vision topics</li>
                   <li>Humanoid robotics</li>
                 </ul>
+                <div className="skill-shortcuts">
+                  <p><strong>💡 Pro Tips:</strong></p>
+                  <p>• Use <code>/hardware nvidia-jetson-orin-nano</code> to lookup hardware specs</p>
+                  <p>• Use <code>/ros2 launch lidar</code> to generate ROS 2 commands</p>
+                </div>
               </div>
             )}
 
             {messages.map((message, index) => (
               <div key={index} className={`message ${message.role}`}>
                 <div className="message-content">
-                  <div className="message-text">{message.content}</div>
-                  {message.sources && message.sources.length > 0 && (
-                    <div className="message-sources">
-                      <strong>Sources:</strong>
-                      {message.sources.map((source, idx) => (
-                        <div key={idx} className="source-item">
-                          <span className="source-title">{source.title}</span>
-                          <span className="source-score">
-                            {(source.score * 100).toFixed(0)}% match
-                          </span>
+                  {message.skillType === 'hardware' && message.skillData ? (
+                    <HardwareSpecCard spec={message.skillData as HardwareSpec} />
+                  ) : message.skillType === 'ros2' && message.skillData ? (
+                    <ROS2CommandCard command={message.skillData as ROS2Command} />
+                  ) : (
+                    <>
+                      <div className="message-text">{message.content}</div>
+                      {message.sources && message.sources.length > 0 && (
+                        <div className="message-sources">
+                          <strong>Sources:</strong>
+                          {message.sources.map((source, idx) => (
+                            <div key={idx} className="source-item">
+                              <span className="source-title">{source.title}</span>
+                              <span className="source-score">
+                                {(source.score * 100).toFixed(0)}% match
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
