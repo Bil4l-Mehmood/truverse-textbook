@@ -68,17 +68,17 @@ class PersonalizationService:
                     "Highlight intermediate best practices."
                 )
 
-            # Use Claude or fallback to text-based personalization
+            # Use Groq API for personalization (free tier available)
             from src.core.config import settings
 
-            if settings.openai_api_key:
-                # Use OpenAI GPT-4 for personalization
+            if settings.groq_api_key:
+                # Use Groq API for personalization
                 try:
-                    from openai import AsyncOpenAI
-                    client = AsyncOpenAI(api_key=settings.openai_api_key)
+                    from groq import AsyncGroq
+                    client = AsyncGroq(api_key=settings.groq_api_key)
 
                     response = await client.chat.completions.create(
-                        model="gpt-4",
+                        model=settings.chat_model,  # llama-3.1-8b-instant by default
                         messages=[
                             {
                                 "role": "system",
@@ -120,7 +120,7 @@ class PersonalizationService:
                     }
 
                 except Exception as e:
-                    logger.error(f"OpenAI API error during personalization: {str(e)}")
+                    logger.error(f"Groq API error during personalization: {str(e)}")
                     # Fallback to template-based personalization
                     return await self._template_based_personalization(
                         chapter_content, personalization_level, user_background, chapter_title

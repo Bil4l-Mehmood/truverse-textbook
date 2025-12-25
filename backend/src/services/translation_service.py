@@ -38,14 +38,14 @@ class TranslationService:
         try:
             from src.core.config import settings
 
-            if settings.openai_api_key:
-                # Use OpenAI GPT-4 for translation
+            if settings.groq_api_key:
+                # Use Groq API for translation
                 try:
-                    from openai import AsyncOpenAI
-                    client = AsyncOpenAI(api_key=settings.openai_api_key)
+                    from groq import AsyncGroq
+                    client = AsyncGroq(api_key=settings.groq_api_key)
 
                     response = await client.chat.completions.create(
-                        model="gpt-4",
+                        model=settings.chat_model,  # llama-3.1-8b-instant by default
                         messages=[
                             {
                                 "role": "system",
@@ -84,7 +84,7 @@ class TranslationService:
                     }
 
                 except Exception as e:
-                    logger.error(f"OpenAI API error during translation: {str(e)}")
+                    logger.error(f"Groq API error during translation: {str(e)}")
                     # Fallback to placeholder translation
                     return await self._placeholder_translation(content, chapter_title)
             else:
