@@ -29,15 +29,14 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://truverse-textbook.vercel.app",
-  "baseUrl": "/ur/",
+  "baseUrl": "/",
   "organizationName": "truverse",
   "projectName": "ai-textbook-platform",
   "onBrokenLinks": "throw",
   "i18n": {
     "defaultLocale": "en",
     "locales": [
-      "en",
-      "ur"
+      "en"
     ],
     "path": "i18n",
     "localeConfigs": {
@@ -45,11 +44,6 @@ export default {
         "label": "English",
         "direction": "ltr",
         "htmlLang": "en-US"
-      },
-      "ur": {
-        "label": "اردو",
-        "direction": "rtl",
-        "htmlLang": "ur-PK"
       }
     }
   },

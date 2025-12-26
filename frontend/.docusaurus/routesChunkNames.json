@@ -1,110 +1,110 @@
 {
-  "/ur/auth/Profile-9ab": {
+  "/auth/Profile-238": {
     "__comp": "440e0fcb",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/auth/Questionnaire-d97": {
+  "/auth/Questionnaire-3e8": {
     "__comp": "33c7b439",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/auth/SignIn-221": {
+  "/auth/SignIn-d1b": {
     "__comp": "6c532e3c",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/auth/SignUp-479": {
+  "/auth/SignUp-ae6": {
     "__comp": "d4cddf56",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/markdown-page-c0a": {
+  "/markdown-page-3d7": {
     "__comp": "1f391b9e",
     "__context": {
       "plugin": "a7456010"
     },
     "content": "393be207"
   },
-  "/ur/profile-794": {
+  "/profile-90e": {
     "__comp": "e6e2357d",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/signin-06f": {
+  "/signin-ba0": {
     "__comp": "6f7d680a",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/signup-64a": {
+  "/signup-312": {
     "__comp": "8d9bf57a",
     "__context": {
       "plugin": "a7456010"
     },
     "config": "5e9f5e1a"
   },
-  "/ur/docs-886": {
+  "/docs-341": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/ur/docs-258": {
+  "/docs-9ff": {
     "__comp": "a7bd4aaa",
-    "__props": "04f2558c"
+    "__props": "0058b4c6"
   },
-  "/ur/docs-30e": {
+  "/docs-8f2": {
     "__comp": "a94703ab"
   },
-  "/ur/docs/hardware-requirements-3fc": {
+  "/docs/hardware-requirements-663": {
     "__comp": "17896441",
     "content": "122dbed4"
   },
-  "/ur/docs/intro-8a7": {
+  "/docs/intro-61d": {
     "__comp": "17896441",
-    "content": "9e1a014e"
+    "content": "0e384e19"
   },
-  "/ur/docs/learning-outcomes-e7e": {
+  "/docs/learning-outcomes-769": {
     "__comp": "17896441",
     "content": "8b222800"
   },
-  "/ur/docs/personalization-example-da9": {
+  "/docs/personalization-example-8cf": {
     "__comp": "17896441",
     "content": "726e28d1"
   },
-  "/ur/docs/placeholder-7c6": {
+  "/docs/placeholder-9f0": {
     "__comp": "17896441",
     "content": "5d9411d3"
   },
-  "/ur/docs/quarter-overview-4d4": {
+  "/docs/quarter-overview-360": {
     "__comp": "17896441",
     "content": "195ed3c8"
   },
-  "/ur/docs/weeks-01-02/-724": {
+  "/docs/weeks-01-02/-72a": {
     "__comp": "17896441",
     "content": "d409af02"
   },
-  "/ur/docs/weeks-01-02/module-details-9fc": {
+  "/docs/weeks-01-02/module-details-1f3": {
     "__comp": "17896441",
     "content": "81a3ce0a"
   },
-  "/ur/docs/weeks-03-04/-1b4": {
+  "/docs/weeks-03-04/-0be": {
     "__comp": "17896441",
     "content": "5c4446aa"
   },
-  "/ur/-f17": {
+  "/-e5f": {
     "__comp": "1df93b7f",
     "__context": {
       "plugin": "a7456010"

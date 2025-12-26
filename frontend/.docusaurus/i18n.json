@@ -1,11 +1,10 @@
 {
   "defaultLocale": "en",
   "locales": [
-    "en",
-    "ur"
+    "en"
   ],
   "path": "i18n",
-  "currentLocale": "ur",
+  "currentLocale": "en",
   "localeConfigs": {
     "en": {
       "label": "English",
@@ -16,16 +15,6 @@
       "translate": false,
       "url": "https://truverse-textbook.vercel.app",
       "baseUrl": "/"
-    },
-    "ur": {
-      "label": "اردو",
-      "direction": "rtl",
-      "htmlLang": "ur-PK",
-      "calendar": "gregory",
-      "path": "ur",
-      "translate": true,
-      "url": "https://truverse-textbook.vercel.app",
-      "baseUrl": "/ur/"
     }
   }
 }

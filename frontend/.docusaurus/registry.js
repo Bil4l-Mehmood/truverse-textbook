@@ -1,5 +1,6 @@
 export default {
-  "04f2558c": [() => import(/* webpackChunkName: "04f2558c" */ "@generated/docusaurus-plugin-content-docs/default/p/ur-docs-a2b.json"), "@generated/docusaurus-plugin-content-docs/default/p/ur-docs-a2b.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/p/ur-docs-a2b.json")],
+  "0058b4c6": [() => import(/* webpackChunkName: "0058b4c6" */ "@generated/docusaurus-plugin-content-docs/default/p/docs-175.json"), "@generated/docusaurus-plugin-content-docs/default/p/docs-175.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/p/docs-175.json")],
+  "0e384e19": [() => import(/* webpackChunkName: "0e384e19" */ "@site/docs/intro.md"), "@site/docs/intro.md", require.resolveWeak("@site/docs/intro.md")],
   "122dbed4": [() => import(/* webpackChunkName: "122dbed4" */ "@site/docs/hardware-requirements.md"), "@site/docs/hardware-requirements.md", require.resolveWeak("@site/docs/hardware-requirements.md")],
   "17896441": [() => import(/* webpackChunkName: "17896441" */ "@theme/DocItem"), "@theme/DocItem", require.resolveWeak("@theme/DocItem")],
   "195ed3c8": [() => import(/* webpackChunkName: "195ed3c8" */ "@site/docs/quarter-overview.md"), "@site/docs/quarter-overview.md", require.resolveWeak("@site/docs/quarter-overview.md")],
@@ -18,7 +19,6 @@ export default {
   "81a3ce0a": [() => import(/* webpackChunkName: "81a3ce0a" */ "@site/docs/weeks-01-02/module-details.md"), "@site/docs/weeks-01-02/module-details.md", require.resolveWeak("@site/docs/weeks-01-02/module-details.md")],
   "8b222800": [() => import(/* webpackChunkName: "8b222800" */ "@site/docs/learning-outcomes.md"), "@site/docs/learning-outcomes.md", require.resolveWeak("@site/docs/learning-outcomes.md")],
   "8d9bf57a": [() => import(/* webpackChunkName: "8d9bf57a" */ "@site/src/pages/signup.tsx"), "@site/src/pages/signup.tsx", require.resolveWeak("@site/src/pages/signup.tsx")],
-  "9e1a014e": [() => import(/* webpackChunkName: "9e1a014e" */ "@site/i18n/ur/docusaurus-plugin-content-docs/current/intro.md"), "@site/i18n/ur/docusaurus-plugin-content-docs/current/intro.md", require.resolveWeak("@site/i18n/ur/docusaurus-plugin-content-docs/current/intro.md")],
   "a7456010": [() => import(/* webpackChunkName: "a7456010" */ "@generated/docusaurus-plugin-content-pages/default/__plugin.json"), "@generated/docusaurus-plugin-content-pages/default/__plugin.json", require.resolveWeak("@generated/docusaurus-plugin-content-pages/default/__plugin.json")],
   "a7bd4aaa": [() => import(/* webpackChunkName: "a7bd4aaa" */ "@theme/DocVersionRoot"), "@theme/DocVersionRoot", require.resolveWeak("@theme/DocVersionRoot")],
   "a94703ab": [() => import(/* webpackChunkName: "a94703ab" */ "@theme/DocRoot"), "@theme/DocRoot", require.resolveWeak("@theme/DocRoot")],

@@ -5,7 +5,7 @@
   "source": "@site/docs/learning-outcomes.md",
   "sourceDirName": ".",
   "slug": "/learning-outcomes",
-  "permalink": "/ur/docs/learning-outcomes",
+  "permalink": "/docs/learning-outcomes",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -17,10 +17,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Hardware Requirements",
-    "permalink": "/ur/docs/hardware-requirements"
+    "permalink": "/docs/hardware-requirements"
   },
   "next": {
     "title": "Weeks 1-2: ROS 2 Foundations",
-    "permalink": "/ur/docs/weeks-01-02/"
+    "permalink": "/docs/weeks-01-02/"
   }
 }

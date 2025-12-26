@@ -3,106 +3,106 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/ur/auth/Profile',
-    component: ComponentCreator('/ur/auth/Profile', '9ab'),
+    path: '/auth/Profile',
+    component: ComponentCreator('/auth/Profile', '238'),
     exact: true
   },
   {
-    path: '/ur/auth/Questionnaire',
-    component: ComponentCreator('/ur/auth/Questionnaire', 'd97'),
+    path: '/auth/Questionnaire',
+    component: ComponentCreator('/auth/Questionnaire', '3e8'),
     exact: true
   },
   {
-    path: '/ur/auth/SignIn',
-    component: ComponentCreator('/ur/auth/SignIn', '221'),
+    path: '/auth/SignIn',
+    component: ComponentCreator('/auth/SignIn', 'd1b'),
     exact: true
   },
   {
-    path: '/ur/auth/SignUp',
-    component: ComponentCreator('/ur/auth/SignUp', '479'),
+    path: '/auth/SignUp',
+    component: ComponentCreator('/auth/SignUp', 'ae6'),
     exact: true
   },
   {
-    path: '/ur/markdown-page',
-    component: ComponentCreator('/ur/markdown-page', 'c0a'),
+    path: '/markdown-page',
+    component: ComponentCreator('/markdown-page', '3d7'),
     exact: true
   },
   {
-    path: '/ur/profile',
-    component: ComponentCreator('/ur/profile', '794'),
+    path: '/profile',
+    component: ComponentCreator('/profile', '90e'),
     exact: true
   },
   {
-    path: '/ur/signin',
-    component: ComponentCreator('/ur/signin', '06f'),
+    path: '/signin',
+    component: ComponentCreator('/signin', 'ba0'),
     exact: true
   },
   {
-    path: '/ur/signup',
-    component: ComponentCreator('/ur/signup', '64a'),
+    path: '/signup',
+    component: ComponentCreator('/signup', '312'),
     exact: true
   },
   {
-    path: '/ur/docs',
-    component: ComponentCreator('/ur/docs', '886'),
+    path: '/docs',
+    component: ComponentCreator('/docs', '341'),
     routes: [
       {
-        path: '/ur/docs',
-        component: ComponentCreator('/ur/docs', '258'),
+        path: '/docs',
+        component: ComponentCreator('/docs', '9ff'),
         routes: [
           {
-            path: '/ur/docs',
-            component: ComponentCreator('/ur/docs', '30e'),
+            path: '/docs',
+            component: ComponentCreator('/docs', '8f2'),
             routes: [
               {
-                path: '/ur/docs/hardware-requirements',
-                component: ComponentCreator('/ur/docs/hardware-requirements', '3fc'),
+                path: '/docs/hardware-requirements',
+                component: ComponentCreator('/docs/hardware-requirements', '663'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/intro',
-                component: ComponentCreator('/ur/docs/intro', '8a7'),
+                path: '/docs/intro',
+                component: ComponentCreator('/docs/intro', '61d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/learning-outcomes',
-                component: ComponentCreator('/ur/docs/learning-outcomes', 'e7e'),
+                path: '/docs/learning-outcomes',
+                component: ComponentCreator('/docs/learning-outcomes', '769'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/personalization-example',
-                component: ComponentCreator('/ur/docs/personalization-example', 'da9'),
+                path: '/docs/personalization-example',
+                component: ComponentCreator('/docs/personalization-example', '8cf'),
                 exact: true
               },
               {
-                path: '/ur/docs/placeholder',
-                component: ComponentCreator('/ur/docs/placeholder', '7c6'),
+                path: '/docs/placeholder',
+                component: ComponentCreator('/docs/placeholder', '9f0'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/quarter-overview',
-                component: ComponentCreator('/ur/docs/quarter-overview', '4d4'),
+                path: '/docs/quarter-overview',
+                component: ComponentCreator('/docs/quarter-overview', '360'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/weeks-01-02/',
-                component: ComponentCreator('/ur/docs/weeks-01-02/', '724'),
+                path: '/docs/weeks-01-02/',
+                component: ComponentCreator('/docs/weeks-01-02/', '72a'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ur/docs/weeks-01-02/module-details',
-                component: ComponentCreator('/ur/docs/weeks-01-02/module-details', '9fc'),
+                path: '/docs/weeks-01-02/module-details',
+                component: ComponentCreator('/docs/weeks-01-02/module-details', '1f3'),
                 exact: true
               },
               {
-                path: '/ur/docs/weeks-03-04/',
-                component: ComponentCreator('/ur/docs/weeks-03-04/', '1b4'),
+                path: '/docs/weeks-03-04/',
+                component: ComponentCreator('/docs/weeks-03-04/', '0be'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -113,8 +113,8 @@ export default [
     ]
   },
   {
-    path: '/ur/',
-    component: ComponentCreator('/ur/', 'f17'),
+    path: '/',
+    component: ComponentCreator('/', 'e5f'),
     exact: true
   },
   {
