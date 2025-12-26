@@ -10,7 +10,7 @@ alembic==1.13.1
 psycopg2-binary==2.9.9
 
 # Vector Database - Qdrant
-qdrant-client==1.7.3
+qdrant-client==1.11.0
 
 # Embeddings - Cohere API (FREE tier: 100 req/min)
 # Get free key at: https://dashboard.cohere.com/api-keys

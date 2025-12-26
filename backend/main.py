@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
+from sqlalchemy import text
 
 from src.core.config import settings
 from src.database.postgres import init_db, close_db
@@ -100,7 +101,7 @@ async def status():
         from src.database.postgres import engine
 
         async with engine.connect() as conn:
-            await conn.execute("SELECT 1")
+            await conn.execute(text("SELECT 1"))
         status_response["postgres"] = "connected"
     except Exception as e:
         logger.error(f"Postgres connection error: {e}")
