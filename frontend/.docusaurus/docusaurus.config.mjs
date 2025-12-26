@@ -29,7 +29,7 @@ export default {
     "experimental_router": "browser"
   },
   "url": "https://truverse-textbook.vercel.app",
-  "baseUrl": "/",
+  "baseUrl": "/ur/",
   "organizationName": "truverse",
   "projectName": "ai-textbook-platform",
   "onBrokenLinks": "throw",

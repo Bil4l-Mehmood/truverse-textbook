@@ -1,56 +1,56 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/docs",
+      "path": "/ur/docs",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/docs",
+          "path": "/ur/docs",
           "mainDocId": "intro",
           "docs": [
             {
               "id": "hardware-requirements",
-              "path": "/docs/hardware-requirements",
+              "path": "/ur/docs/hardware-requirements",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "intro",
-              "path": "/docs/intro",
+              "path": "/ur/docs/intro",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "learning-outcomes",
-              "path": "/docs/learning-outcomes",
+              "path": "/ur/docs/learning-outcomes",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "personalization-example",
-              "path": "/docs/personalization-example"
+              "path": "/ur/docs/personalization-example"
             },
             {
               "id": "placeholder",
-              "path": "/docs/placeholder",
+              "path": "/ur/docs/placeholder",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "quarter-overview",
-              "path": "/docs/quarter-overview",
+              "path": "/ur/docs/quarter-overview",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "weeks-01-02/index",
-              "path": "/docs/weeks-01-02/",
+              "path": "/ur/docs/weeks-01-02/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "weeks-01-02/module-details",
-              "path": "/docs/weeks-01-02/module-details"
+              "path": "/ur/docs/weeks-01-02/module-details"
             },
             {
               "id": "weeks-03-04/index",
-              "path": "/docs/weeks-03-04/",
+              "path": "/ur/docs/weeks-03-04/",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -58,7 +58,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/docs/intro",
+                "path": "/ur/docs/intro",
                 "label": "intro"
               }
             }
