@@ -26,6 +26,18 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
+  // Explicitly disable i18n to prevent auto-detection of locale folders
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+        htmlLang: 'en-US',
+      },
+    },
+  },
 
   presets: [
     [
