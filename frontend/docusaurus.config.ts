@@ -26,20 +26,6 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
-  // Internationalization configuration
-  // English only - Urdu locale files removed to fix build errors
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-    path: 'i18n',
-    localeConfigs: {
-      en: {
-        label: 'English',
-        direction: 'ltr',
-        htmlLang: 'en-US',
-      },
-    },
-  },
 
   presets: [
     [
