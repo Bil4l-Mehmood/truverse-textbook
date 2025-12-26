@@ -27,7 +27,7 @@ const config: Config = {
   onBrokenLinks: 'throw',
 
   // Internationalization configuration
-  // English only for now - Urdu support disabled due to i18n config issues
+  // English only - Urdu locale files removed to fix build errors
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
