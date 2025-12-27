@@ -2,6 +2,12 @@
   "buildCommand": "cd frontend && chmod +x node_modules/.bin/docusaurus && npm run build",
   "outputDirectory": "frontend/build",
   "installCommand": "npm --prefix=./frontend install && chmod +x ./node_modules/.bin/* 2>/dev/null || true",
+  "rewrites": [
+    {
+      "source": "/api/v1/:path*",
+      "destination": "https://truverse-textbook-production.up.railway.app/api/v1/:path*"
+    }
+  ],
   "env": {
     "NODE_OPTIONS": "--max-old-space-size=4096"
   }

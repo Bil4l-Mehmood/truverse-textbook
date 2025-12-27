@@ -1,8 +1,9 @@
 /**
  * Authentication service - API client for backend auth endpoints
+ * Uses Vercel rewrites to proxy API calls to avoid CORS issues
  */
 
-const API_BASE_URL = 'https://truverse-textbook-production.up.railway.app';
+const API_BASE_URL = '';
 
 export interface User {
   id: number;
