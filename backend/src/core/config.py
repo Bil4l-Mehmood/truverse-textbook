@@ -40,13 +40,8 @@ class Settings(BaseSettings):
     # Better Auth Secret (shared with auth-server)
     better_auth_secret: str = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 
-    # CORS
-    cors_origins: list[str] = [
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "https://truverse-textbook.vercel.app",
-        "https://truverse-textbook-6tsns1llj-billals-projects-66089552.vercel.app",
-    ]
+    # CORS - Allow all origins for now to debug
+    cors_origins: list[str] = ["*"]
 
     # Rate Limiting
     rate_limit_per_minute: int = 100
