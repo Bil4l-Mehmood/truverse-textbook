@@ -44,7 +44,8 @@ class Settings(BaseSettings):
     cors_origins: list[str] = [
         "http://localhost:3000",
         "http://localhost:3001",
-        "https://*.vercel.app"
+        "https://truverse-textbook.vercel.app",
+        "https://truverse-textbook-6tsns1llj-billals-projects-66089552.vercel.app",
     ]
 
     # Rate Limiting
