@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm --prefix=./frontend run build",
+  "buildCommand": "cd frontend && npx docusaurus build",
   "outputDirectory": "frontend/build",
   "installCommand": "npm --prefix=./frontend install",
   "env": {
